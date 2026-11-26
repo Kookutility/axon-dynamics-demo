@@ -117,3 +117,14 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .case-studies .label { color: var(--mint); margin: 0 0 10px; }
 .case-studies h3 { font-size: 1.22rem; font-weight: 550; line-height: 1.35; word-break: keep-all; margin: 0; }
 .case-studies a { align-self: start; margin-top: auto; padding: 16px 0 4px; color: var(--mint); font-size: .9rem; text-decoration: underline; text-underline-offset: 4px; }
+.demo-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 18px; margin: 24px 0 15px; }
+.demo-heading h3 { margin: 0; font-weight: 550; word-break: keep-all; }
+#result-play { border: 0; }
+.chat-placeholder { display: grid; place-items: center; min-height: 100px; padding: 20px; color: var(--soft); }
+.chat-placeholder p { margin: 0; }
+.demo-conditions { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--soft); }
+.demo-conditions summary { cursor: pointer; }
+.demo-conditions p { margin: 10px 0 0; line-height: 1.6; word-break: keep-all; }
+@media (min-width: 621px) {
+  #lab .lab { grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr); }
+}
