@@ -8,7 +8,7 @@
 <title>Axon Dynamics — 물리 시뮬레이션 특화 AI</title>
 <link rel="stylesheet" href="style.css?v=pallet-process">
 <script src="pallet-results.js?v=part-trials" defer></script>
-<script src="app.js?v=pallet-process" defer></script>
+<script src="app.js?v=lab-only-process" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
@@ -35,7 +35,7 @@
 <section class="preview-chat" aria-label="대화">
 <div class="preview-chat-body">
 <div class="chat-turn"><div class="from-user"><p>2.5 kg 커피 상자를 팔레트에 옮길 때, 관절 이동이 가장 적은 조합은 뭐야?</p></div></div>
-<div class="chat-turn" id="preview-pallet-answer" hidden><div class="from-axon"><p class="label">Axon</p><p>적재를 마친 두 조합 중 <strong>UR10e + PowerPick 0 mm</strong>의 관절 이동이 가장 적었어요. 100 mm 조합보다 48.4° 적었습니다.</p></div></div>
+<div class="chat-turn"><div class="from-axon"><p class="label">Axon</p><p>적재를 마친 두 조합 중 <strong>UR10e + PowerPick 0 mm</strong>의 관절 이동이 가장 적었어요. 100 mm 조합보다 48.4° 적었습니다.</p></div></div>
 </div>
 <div class="chat-messages" role="log" aria-label="Axon 실험실 대화"></div>
 <form class="chat-compose">
@@ -45,8 +45,6 @@
 </section>
 <figure class="hero-preview">
 <figcaption>시뮬레이션 결과 <span>Isaac Sim</span></figcaption>
-<div class="pallet-result-wait" id="preview-pallet-wait"><a id="preview-start-link" href="#pallet-lab">적재 검증 시작하기</a></div>
-<div id="preview-pallet-result" hidden>
 <video controls playsinline preload="none" poster="media/warehouse-palletizing.jpg" aria-label="Isaac Sim 창고에서 컨베이어의 상자를 팔레트에 옮기는 영상">
 <source src="media/warehouse-palletizing.mp4" type="video/mp4">
 </video>
@@ -60,8 +58,7 @@
 <tr><th scope="row">나머지 3개 조합</th><td>적재 미완료</td><td>—</td></tr>
 </tbody>
 </table>
-<a id="preview-trials-link" href="#trial-results">5개 조합의 결과와 영상 보기</a>
-</div>
+<a id="preview-trials-link" href="#pallet-lab">Axon 실험실에서 검증 과정 보기</a>
 </div>
 </figure>
 </div>

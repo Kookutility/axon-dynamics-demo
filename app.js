@@ -137,9 +137,6 @@ noParts.addEventListener('click', () => {
       palletFollowup.hidden = false;
       palletComplete = true;
       showPalletResults();
-      document.querySelector('#preview-pallet-answer').hidden = false;
-      document.querySelector('#preview-pallet-result').hidden = false;
-      document.querySelector('#preview-pallet-wait').hidden = true;
     }, 3000);
   }, 3000);
 });
@@ -196,13 +193,11 @@ demoButtons.forEach(button => button.addEventListener('click', () => {
   if (button.getAttribute('aria-pressed') !== 'true') showDemo(button.dataset.demo);
 }));
 resultPlay.addEventListener('click', playVideo);
-for (const id of ['preview-start-link', 'preview-trials-link']) {
-  document.querySelector('#' + id).addEventListener('click', () => {
-    if (document.querySelector('[data-demo="palletizing"]').getAttribute('aria-pressed') !== 'true') {
-      showDemo('palletizing');
-    }
-  });
-}
+document.querySelector('#preview-trials-link').addEventListener('click', () => {
+  if (document.querySelector('[data-demo="palletizing"]').getAttribute('aria-pressed') !== 'true') {
+    showDemo('palletizing');
+  }
+});
 showDemo('palletizing');
 
 function appendChatMessage(messages, sender, label, text) {
