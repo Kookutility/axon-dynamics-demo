@@ -2,17 +2,23 @@ const video = document.querySelector('#result-video');
 const mediaStatus = document.querySelector('#media-status');
 const demoTitle = document.querySelector('#demo-title');
 const snapshot = document.querySelector('#result-snapshot');
+const sampleQuestion = document.querySelector('#sample-question');
+const sampleAnswer = document.querySelector('#sample-answer');
 const demoButtons = document.querySelectorAll('[data-demo]');
 const demos = {
   incline: {
     title: demoTitle.textContent,
     video: video.getAttribute('src'),
-    image: video.getAttribute('poster')
+    image: video.getAttribute('poster'),
+    question: sampleQuestion.textContent,
+    answer: sampleAnswer.textContent
   },
   palletizing: {
     title: 'Napco Brands의 커피 상자 팔레트 적재',
     video: 'media/isaac-napco-palletizing.mp4',
-    image: 'media/isaac-palletizing-116.jpg'
+    image: 'media/isaac-palletizing-116.jpg',
+    question: '밀봉이 끝난 커피 상자를 컨베이어에서 팔레트로 어떻게 옮기나요?',
+    answer: 'UR10e가 PowerPick으로 상자 윗면을 잡고 팔레트 위까지 옮깁니다. 영상에서 상자를 내려놓고 그리퍼가 빠져나오는 동작을 볼 수 있어요.'
   }
 };
 
@@ -26,6 +32,8 @@ demoButtons.forEach(button => button.addEventListener('click', () => {
   video.setAttribute('aria-label', demo.title + ' 영상');
   video.load();
   demoTitle.textContent = demo.title;
+  sampleQuestion.textContent = demo.question;
+  sampleAnswer.textContent = demo.answer;
   snapshot.href = demo.image;
   mediaStatus.hidden = true;
   demoButtons.forEach(option => {

@@ -6,8 +6,8 @@
 <meta name="description" content="Axon Dynamics는 제조 및 물류 현장을 직접 방문해 공정을 진단하고, 물리 시뮬레이션으로 개선안을 검증해 현장에 적용합니다.">
 <link rel="icon" href="axon-mark.svg" type="image/svg+xml">
 <title>Axon Dynamics — 제조 및 물류 현장 디지털 전환</title>
-<link rel="stylesheet" href="style.css?v=palletizing">
-<script src="app.js?v=palletizing" defer></script>
+<link rel="stylesheet" href="style.css?v=sample-chat">
+<script src="app.js?v=sample-chat" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
@@ -51,8 +51,18 @@
 <button class="button small" type="button" id="result-play">시뮬레이션해 보기</button>
 </div>
 <div class="lab">
-<div class="chat-placeholder" aria-label="액슨 채팅">
-<p>기능 준비 중</p>
+<div class="response" aria-label="액슨 예시 채팅">
+<div class="chat-log" aria-live="polite">
+<div class="chat-turn">
+<div class="from-user"><p class="label">나</p><p id="sample-question">18도 경사에서 이송 설비가 멈추면 12 kg 상자가 제자리에 있나요?</p></div>
+<div class="from-axon"><p class="label">액슨</p><p id="sample-answer">접촉면에 따라 달랐어요. 마찰계수 0.10에서는 상자가 경사면을 벗어났고, 0.65에서는 처음 위치에 머물렀습니다.</p></div>
+</div>
+</div>
+<div class="chat-form">
+<div class="chat-compose">
+<input type="text" aria-label="채팅 입력: 기능 준비 중" placeholder="기능 준비 중" disabled>
+</div>
+</div>
 </div>
 <div class="viewer gripper-view">
 <div class="video-legend" id="incline-legend"><span>주황 레인: 마찰계수 0.10</span><span>청록 레인: 마찰계수 0.65</span></div>
