@@ -6,8 +6,8 @@
 <meta name="description" content="Axon Dynamics는 제조 및 물류 현장을 직접 방문해 공정을 진단하고, 물리 시뮬레이션으로 개선안을 검증해 현장에 적용합니다.">
 <link rel="icon" href="axon-mark.svg" type="image/svg+xml">
 <title>Axon Dynamics — 제조 및 물류 현장 디지털 전환</title>
-<link rel="stylesheet" href="style.css?v=default-demo">
-<script src="app.js?v=default-demo" defer></script>
+<link rel="stylesheet" href="style.css?v=palletizing">
+<script src="app.js?v=palletizing" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
@@ -42,9 +42,12 @@
 <section class="wrap block" id="lab">
 <p class="eyebrow">액슨 실험실</p>
 <h2>공정 시뮬레이션 데모</h2>
-<p class="section-copy">경사 이송 구간이 정지했을 때 포장품이 위치를 유지하는지 검토합니다. 두 접촉면의 차이를 Isaac Sim 촬영 영상에서 확인해 보세요.</p>
+<div class="choices" role="group" aria-label="시뮬레이션 선택">
+<button type="button" data-demo="incline" aria-pressed="true">경사 이송</button>
+<button type="button" data-demo="palletizing" aria-pressed="false">로봇 팔레트 적재</button>
+</div>
 <div class="demo-heading">
-<h3>경사 이송 구간의 정지 안정성 검증</h3>
+<h3 id="demo-title">경사 이송 구간의 정지 안정성 검증</h3>
 <button class="button small" type="button" id="result-play">시뮬레이션해 보기</button>
 </div>
 <div class="lab">
@@ -52,17 +55,22 @@
 <p>기능 준비 중</p>
 </div>
 <div class="viewer gripper-view">
-<div class="video-legend"><span>주황 레인: 마찰계수 0.10</span><span>청록 레인: 마찰계수 0.65</span></div>
-<video id="result-video" controls playsinline preload="none" poster="media/isaac-frame-118.jpg?v=factory" aria-label="Isaac Sim의 경사 컨베이어 마찰 비교 영상">
-<source src="media/isaac-pallet-incline.mp4?v=factory" type="video/mp4">
+<div class="video-legend" id="incline-legend"><span>주황 레인: 마찰계수 0.10</span><span>청록 레인: 마찰계수 0.65</span></div>
+<p class="demo-equipment" id="palletizing-legend" hidden>Universal Robots UR10e와 Robotiq PowerPick</p>
+<video id="result-video" controls playsinline preload="none" src="media/isaac-pallet-incline.mp4?v=factory" poster="media/isaac-frame-118.jpg?v=factory" aria-label="경사 이송 구간의 정지 안정성 검증 영상">
 </video>
 <div class="result-controls">
-<a href="media/isaac-frame-118.jpg?v=factory" download>스크린샷 저장</a>
+<a id="result-snapshot" href="media/isaac-frame-118.jpg?v=factory" download>스크린샷 저장</a>
 </div>
 <p class="sample" id="media-status" role="status" hidden></p>
-<details class="demo-conditions">
+<details class="demo-conditions" id="incline-conditions">
 <summary>실험 조건</summary>
 <p>물류 컨베이어의 18° 경사 구간에 12 kg 포장품을 놓고 두 접촉면을 비교했습니다. NVIDIA Isaac Sim의 PhysX 강체 접촉 모델로 이송 정지 시 포장품이 초기 위치를 유지하는지 확인했습니다.</p>
+</details>
+<details class="demo-conditions" id="palletizing-conditions" hidden>
+<summary>실제 사례와 재현 범위</summary>
+<p>Napco Brands는 커피 상자를 밀봉한 뒤 UR10e가 컨베이어에서 집어 팔레트로 옮기는 공정을 도입했습니다. 이 영상은 UR10e와 PowerPick 공개 형상을 쓰고, 데모에서 정한 설비 배치와 경로로 한 번의 적재 동작을 재현합니다. 진공 흡착 중에는 상자를 그리퍼에 고정하고, 놓은 뒤에는 중력과 접촉을 계산했습니다.</p>
+<p><a href="https://www.universal-robots.com/case-stories/napco-brands/">제조사 적용 사례</a> / <a href="https://github.com/google-deepmind/mujoco_menagerie/tree/main/universal_robots_ur10e">UR10e 모델</a> / <a href="https://robotiq.zendesk.com/hc/en-us/articles/17591533619475-3D-model-for-the-gripper-mesh-file">PowerPick 모델</a> / <a href="media/UR10e-LICENSE.txt">UR10e 라이선스</a></p>
 </details>
 </div>
 </div>
