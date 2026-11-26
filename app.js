@@ -5,6 +5,16 @@ const snapshot = document.querySelector('#result-snapshot');
 const sampleQuestion = document.querySelector('#sample-question');
 const sampleAnswer = document.querySelector('#sample-answer');
 const sampleFollowup = document.querySelector('#sample-followup');
+const chatLog = document.querySelector('.chat-log');
+const palletSetup = document.querySelector('#pallet-setup');
+const palletResponse = document.querySelector('#pallet-no-response');
+const palletFollowup = document.querySelector('#pallet-followup');
+const chatEnvironment = document.querySelector('#chat-environment');
+const chatComposition = document.querySelector('#chat-composition');
+const chatPartChoice = document.querySelector('#chat-part-choice');
+const chatPartSearch = document.querySelector('#chat-part-search');
+const noParts = document.querySelector('#chat-no-parts');
+let chatTimer;
 const trialName = document.querySelector('#trial-name');
 const trialStatus = document.querySelector('#trial-status');
 const trialAssembly = document.querySelector('#trial-assembly');
@@ -96,7 +106,40 @@ function showTrial(trial) {
   }
 }
 
+function startPalletChat() {
+  chatEnvironment.textContent = '시뮬레이션 환경 확정 중';
+  chatComposition.hidden = true;
+  chatPartChoice.hidden = true;
+  palletResponse.hidden = true;
+  palletFollowup.hidden = true;
+  noParts.hidden = false;
+  chatLog.scrollTop = 0;
+  chatTimer = setTimeout(() => {
+    chatEnvironment.textContent = '시뮬레이션 환경 확정 완료';
+    chatComposition.hidden = false;
+    chatTimer = setTimeout(() => {
+      chatComposition.textContent = '사용할 부품 구성 검토 완료';
+      chatPartChoice.hidden = false;
+    }, 650);
+  }, 550);
+  chatComposition.textContent = '사용할 부품 구성 검토 중';
+}
+
+noParts.addEventListener('click', () => {
+  noParts.hidden = true;
+  palletResponse.hidden = false;
+  chatPartSearch.textContent = '사용할 부품 구성 파악 중';
+  palletResponse.querySelector('.from-user').focus({ preventScroll: true });
+  chatLog.scrollTop = chatLog.scrollHeight;
+  chatTimer = setTimeout(() => {
+    chatPartSearch.textContent = '비교할 부품 조합 5개 확인 완료';
+    palletFollowup.hidden = false;
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }, 850);
+});
+
 function showDemo(selected) {
+  clearTimeout(chatTimer);
   const palletizing = selected === 'palletizing';
   demoButtons.forEach(button => {
     const id = button.dataset.demo;
@@ -105,7 +148,10 @@ function showDemo(selected) {
     document.querySelector('#' + id + '-conditions').hidden = id !== selected;
   });
   document.querySelector('#trial-results').hidden = !palletizing;
-  document.querySelector('#pallet-followup').hidden = !palletizing;
+  palletSetup.hidden = !palletizing;
+  palletResponse.hidden = true;
+  palletFollowup.hidden = true;
+  document.querySelector('#incline-chat-answer').hidden = palletizing;
   trialAssembly.hidden = !palletizing;
 
   if (palletizing) {
@@ -114,14 +160,15 @@ function showDemo(selected) {
     sampleAnswer.textContent = successful.length
       ? recommended.arm + '에 PowerPick ' + recommended.tool + '를 조합한 구성이 이번 시험에서 가장 좋았어요. ' + recommended.assembly + ' 적재를 완료한 구성 중 여섯 관절의 이동량 합계가 ' + recommended.jointTravelDeg.toFixed(1) + '도로 가장 작았습니다.'
       : '다섯 구성 모두 이번 시험의 적재 기준을 충족하지 못했습니다.';
-    sampleFollowup.textContent = '같은 2.5 kg 상자와 같은 경로에서 다섯 조합을 돌렸어요. ' + successful.length + '개가 적재를 마쳤습니다. 옆 표에서 각 조합의 위치 오차와 관절 이동량을 확인하고 영상을 비교할 수 있어요.';
+    sampleFollowup.textContent = '같은 2.5 kg 상자와 경로에서 미리 실행한 다섯 조합 중 ' + successful.length + '개가 적재를 마쳤습니다. 옆 표에서 결과와 촬영 영상을 비교할 수 있어요.';
     showTrial(recommended);
+    startPalletChat();
     return;
   }
 
   demoTitle.textContent = '경사 이송 구간의 정지 안정성 검증';
   sampleQuestion.textContent = '18도 경사에서 이송 설비가 멈추면 12 kg 상자가 제자리에 있나요?';
-  sampleAnswer.textContent = '접촉면에 따라 달랐어요. 마찰계수 0.10에서는 상자가 경사면을 벗어났고, 0.65에서는 처음 위치에 머물렀습니다.';
+  document.querySelector('#incline-answer').textContent = '접촉면에 따라 달랐어요. 마찰계수 0.10에서는 상자가 경사면을 벗어났고, 0.65에서는 처음 위치에 머물렀습니다.';
   showMedia('media/isaac-pallet-incline.mp4?v=factory', 'media/isaac-frame-118.jpg?v=factory', demoTitle.textContent);
 }
 

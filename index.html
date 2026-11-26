@@ -6,9 +6,9 @@
 <meta name="description" content="Axon Dynamics는 제조 및 물류 현장을 직접 방문해 공정을 진단하고, 물리 시뮬레이션으로 개선안을 검증해 현장에 적용합니다.">
 <link rel="icon" href="axon-mark.svg" type="image/svg+xml">
 <title>Axon Dynamics — 제조 및 물류 현장 디지털 전환</title>
-<link rel="stylesheet" href="style.css?v=part-trials">
+<link rel="stylesheet" href="style.css?v=demo-flow">
 <script src="pallet-results.js?v=part-trials" defer></script>
-<script src="app.js?v=part-trials" defer></script>
+<script src="app.js?v=demo-flow" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
@@ -55,12 +55,28 @@
 <div class="response" aria-label="액슨 예시 채팅">
 <div class="chat-log" aria-live="polite">
 <div class="chat-turn">
-<div class="from-user"><p class="label">나</p><p id="sample-question">밀봉이 끝난 커피 상자를 팔레트에 올리려면 어떤 로봇과 흡착 그리퍼를 조립하는 게 제일 좋았어요?</p></div>
-<div class="from-axon"><p class="label">액슨</p><p id="sample-answer"></p></div>
+<div class="from-user"><p class="label">나</p><p id="sample-question">밀봉이 끝난 커피 상자를 팔레트에 올리려면 어떤 로봇과 흡착 그리퍼를 조립하는 게 제일 좋겠는지 추천해 주고, 직접 시뮬레이션 돌려줘.</p></div>
+<div class="from-axon" id="incline-chat-answer" hidden><p class="label">액슨</p><p id="incline-answer"></p></div>
 </div>
-<div class="chat-turn" id="pallet-followup">
-<div class="from-user"><p class="label">나</p><p>다른 구성은 어떻게 비교했어요?</p></div>
-<div class="from-axon"><p class="label">액슨</p><p id="sample-followup"></p></div>
+<div class="chat-turn" id="pallet-setup">
+<div class="from-axon">
+<p class="label">액슨</p>
+<ul class="chat-progress">
+<li id="chat-environment">시뮬레이션 환경 확정 중</li>
+<li id="chat-composition" hidden>사용할 부품 구성 검토 중</li>
+</ul>
+<div id="chat-part-choice" hidden>
+<p>사용할 부품이 정해지셨나요?</p>
+<button type="button" class="chat-choice" id="chat-no-parts">아니요, 추천해 주세요</button>
+</div>
+</div>
+</div>
+<div class="chat-turn" id="pallet-no-response" hidden>
+<div class="from-user" tabindex="-1"><p class="label">나</p><p>아니요, 추천해 주세요.</p></div>
+<div class="from-axon"><p class="label">액슨</p><p id="chat-part-search">사용할 부품 구성 파악 중</p></div>
+</div>
+<div class="chat-turn" id="pallet-followup" hidden>
+<div class="from-axon"><p class="label">액슨</p><p id="sample-answer"></p><p id="sample-followup"></p></div>
 </div>
 </div>
 <div class="chat-form">
