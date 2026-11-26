@@ -6,7 +6,7 @@
 <meta name="description" content="Axon Dynamics는 제조와 물류 현장의 질문을 물리 시뮬레이션으로 검증하는 산업용 LLM Axon을 개발합니다.">
 <link rel="icon" href="axon-mark.svg" type="image/svg+xml">
 <title>Axon Dynamics — 물리 시뮬레이션 특화 AI</title>
-<link rel="stylesheet" href="style.css?v=warehouse-lab">
+<link rel="stylesheet" href="style.css?v=preview-comparison">
 <script src="pallet-results.js?v=part-trials" defer></script>
 <script src="app.js?v=warehouse-lab" defer></script>
 </head>
@@ -32,11 +32,18 @@
 <video controls playsinline preload="none" poster="media/warehouse-palletizing.jpg" aria-label="Isaac Sim 창고에서 컨베이어의 상자를 팔레트에 옮기는 영상">
 <source src="media/warehouse-palletizing.mp4" type="video/mp4">
 </video>
-<dl class="preview-specs">
-<div><dt>설비</dt><dd>UR10e + PowerPick</dd></div>
-<div><dt>상자</dt><dd>430 × 340 × 320 mm / 2.5 kg</dd></div>
-<div><dt>이송</dt><dd>롤러 컨베이어 → 목재 팔레트</dd></div>
-</dl>
+<div class="preview-comparison">
+<table>
+<caption>동일한 2.5 kg 상자로 시험한 5개 조합</caption>
+<thead><tr><th scope="col">조합</th><th scope="col">적재 결과</th><th scope="col">관절 이동량 합계</th></tr></thead>
+<tbody>
+<tr><th scope="row">UR10e + PowerPick 0 mm</th><td><strong>완료 / 영상</strong></td><td>869.3°</td></tr>
+<tr><th scope="row">UR10e + PowerPick 100 mm</th><td>완료</td><td>917.7°</td></tr>
+<tr><th scope="row">나머지 3개 조합</th><td>적재 미완료</td><td>—</td></tr>
+</tbody>
+</table>
+<a href="#trial-results">5개 조합의 결과와 영상 보기</a>
+</div>
 </figure>
 </div>
 </section>

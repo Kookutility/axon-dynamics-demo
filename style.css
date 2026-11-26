@@ -196,10 +196,14 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
   font-size: .875rem;
 }
 .hero-preview video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #080c10; }
-.preview-specs { grid-template-columns: 1fr; padding: 8px 17px; }
-.preview-specs div,
-.preview-specs div + div { display: grid; grid-template-columns: 4em 1fr; gap: 8px; padding: 7px 0; border: 0; }
-.preview-specs dd { margin: 0; font-size: .875rem; font-weight: 500; }
+.preview-comparison { padding: 12px 16px; font-size: .8rem; }
+.preview-comparison table { width: 100%; border-collapse: collapse; text-align: left; }
+.preview-comparison caption { text-align: left; color: var(--soft); margin-bottom: 6px; }
+.preview-comparison th, .preview-comparison td { padding: 6px 5px; border-bottom: 1px solid var(--line); }
+.preview-comparison th { font-weight: 550; }
+.preview-comparison td:last-child { white-space: nowrap; }
+.preview-comparison strong, .preview-comparison a { color: var(--mint); }
+.preview-comparison a { display: inline-block; margin-top: 8px; text-decoration: underline; text-underline-offset: 3px; }
 .offerings { padding-bottom: 18px; }
 .offering-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .offering {
