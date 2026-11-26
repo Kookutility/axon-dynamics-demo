@@ -197,6 +197,7 @@ function appendChatMessage(messages, sender, label, text) {
   bubble.append(name, content);
   turn.append(bubble);
   messages.append(turn);
+  return content;
 }
 
 document.querySelectorAll('form.chat-compose').forEach(form => {
@@ -207,7 +208,12 @@ document.querySelectorAll('form.chat-compose').forEach(form => {
     const question = input.value.trim();
     if (!question) return;
     appendChatMessage(messages, 'from-user', '나', question);
-    appendChatMessage(messages, 'from-axon', '액슨', '직접 입력한 질문을 시뮬레이션으로 실행하는 기능은 현재 준비 중입니다.');
+    const reply = appendChatMessage(messages, 'from-axon', 'Axon', '답변 준비 중');
+    reply.classList.add('chat-loading');
+    setTimeout(() => {
+      reply.classList.remove('chat-loading');
+      reply.textContent = '직접 입력한 질문을 시뮬레이션으로 실행하는 기능은 현재 준비 중입니다.';
+    }, 500);
     form.reset();
     input.focus();
   });
@@ -215,7 +221,6 @@ document.querySelectorAll('form.chat-compose').forEach(form => {
 
 const dockCase = document.querySelector('#dock-case');
 const dockVideo = document.querySelector('#dock-video');
-const dockCsv = document.querySelector('#dock-csv');
 const dockDataStatus = document.querySelector('#dock-data-status');
 const dockFields = ['time', 'gap', 'depth'].map(name => document.querySelector('#dock-' + name));
 let dockReadings = [];
@@ -223,7 +228,7 @@ let dockRequest;
 
 function updateDockReadings() {
   const row = dockReadings[Math.min(dockReadings.length - 1, Math.floor(dockVideo.currentTime * 12))];
-  const values = row ? [row[0].toFixed(2) + ' s', row[2].toFixed(2) + ' m', row[3].toFixed(5)] : ['—', '—', '—'];
+  const values = row ? [row.time.toFixed(2) + ' s', row.gap.toFixed(2) + ' m', row.depth.toFixed(5)] : ['—', '—', '—'];
   dockFields.forEach((field, index) => { field.textContent = values[index]; });
 }
 
@@ -235,16 +240,15 @@ async function loadDockCase() {
   dockVideo.pause();
   dockVideo.poster = path + '.jpg';
   dockVideo.src = path + '.mp4';
-  dockCsv.href = path + '.csv';
   dockDataStatus.hidden = true;
   dockReadings = [];
   updateDockReadings();
   try {
-    const response = await fetch(dockCsv.href, { signal: request.signal });
+    const response = await fetch(path + '.json', { signal: request.signal });
     if (!response.ok) throw new Error('Sensor log unavailable');
-    const csv = await response.text();
+    const readings = await response.json();
     if (request.signal.aborted) return;
-    dockReadings = csv.trim().split(/\r?\n/).slice(1).map(row => row.split(',').map(Number));
+    dockReadings = readings;
     updateDockReadings();
   } catch {
     if (request.signal.aborted) return;
