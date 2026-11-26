@@ -254,7 +254,8 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .trial-table .selected { background: #142625; }
 .trial-table button { color: var(--mint); background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 5px 8px; white-space: nowrap; }
 @media (min-width: 621px) {
-  #pallet-lab .lab { grid-template-columns: minmax(0, 1fr) minmax(0, 1.65fr); }
+  #pallet-lab .lab { grid-template-columns: minmax(0, 1fr) minmax(0, 1.65fr); align-items: stretch; }
+  #pallet-lab .response .chat-compose { margin-top: auto; }
 }
 
 .hero-workspace {
