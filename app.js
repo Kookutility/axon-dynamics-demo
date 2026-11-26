@@ -129,13 +129,19 @@ noParts.addEventListener('click', () => {
   noParts.hidden = true;
   palletResponse.hidden = false;
   chatPartSearch.textContent = '사용할 부품 구성 파악 중';
+  chatPartSearch.classList.add('chat-loading');
   palletResponse.querySelector('.from-user').focus({ preventScroll: true });
   chatLog.scrollTop = chatLog.scrollHeight;
   chatTimer = setTimeout(() => {
-    chatPartSearch.textContent = '비교할 부품 조합 5개 확인 완료';
-    palletFollowup.hidden = false;
+    chatPartSearch.textContent = '부품 조합 5개의 시뮬레이션 결과 비교 중';
     chatLog.scrollTop = chatLog.scrollHeight;
-  }, 850);
+    chatTimer = setTimeout(() => {
+      chatPartSearch.textContent = '부품 조합 5개 비교 완료';
+      chatPartSearch.classList.remove('chat-loading');
+      palletFollowup.hidden = false;
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }, 1500);
+  }, 1300);
 });
 
 function showDemo(selected) {

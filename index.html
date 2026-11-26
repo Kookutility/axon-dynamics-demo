@@ -6,9 +6,9 @@
 <meta name="description" content="Axon Dynamics는 제조와 물류 현장의 질문을 물리 시뮬레이션으로 검증하는 산업용 LLM Axon을 개발합니다.">
 <link rel="icon" href="axon-mark.svg" type="image/svg+xml">
 <title>Axon Dynamics — 물리 시뮬레이션 특화 AI</title>
-<link rel="stylesheet" href="style.css?v=demo-flow">
+<link rel="stylesheet" href="style.css?v=parts-loading">
 <script src="pallet-results.js?v=part-trials" defer></script>
-<script src="app.js?v=demo-flow" defer></script>
+<script src="app.js?v=parts-loading" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
@@ -73,7 +73,7 @@
 </div>
 <div class="chat-turn" id="pallet-no-response" hidden>
 <div class="from-user" tabindex="-1"><p class="label">나</p><p>아니요, 추천해 주세요.</p></div>
-<div class="from-axon"><p class="label">액슨</p><p id="chat-part-search">사용할 부품 구성 파악 중</p></div>
+<div class="from-axon"><p class="label">액슨</p><p id="chat-part-search" class="chat-loading" role="status">사용할 부품 구성 파악 중</p></div>
 </div>
 <div class="chat-turn" id="pallet-followup" hidden>
 <div class="from-axon"><p class="label">액슨</p><p id="sample-answer"></p><p id="sample-followup"></p></div>

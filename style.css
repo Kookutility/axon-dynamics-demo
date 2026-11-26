@@ -133,6 +133,21 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .chat-progress { margin: 3px 0 8px; padding-left: 18px; color: var(--soft); }
 .chat-progress li { padding-block: 2px; }
 .chat-choice { margin-top: 8px; border: 1px solid #58aa99; border-radius: 5px; padding: 7px 10px; background: #17362d; color: var(--mint); }
+.chat-loading::after {
+  content: "";
+  display: inline-block;
+  width: .65em;
+  height: .65em;
+  margin-inline-start: .55em;
+  border: 1px solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  animation: chat-spin .8s linear infinite;
+}
+@keyframes chat-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .chat-loading::after { animation: none; }
+}
 #pallet-followup #sample-followup { margin-top: 8px; }
 #palletizing-legend { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 #palletizing-legend[hidden] { display: none; }
