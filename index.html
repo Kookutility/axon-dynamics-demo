@@ -8,7 +8,7 @@
 <title>Axon Dynamics — 물리 시뮬레이션 특화 AI</title>
 <link rel="stylesheet" href="style.css?v=official-lab-mark">
 <script src="pallet-results.js?v=part-trials" defer></script>
-<script src="app.js?v=lab-only-process" defer></script>
+<script src="app.js?v=lab-controls" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
@@ -155,11 +155,6 @@
 </table>
 </div>
 </section>
-<details class="demo-conditions" id="palletizing-conditions">
-<summary>실제 사례와 재현 범위</summary>
-<p>Napco Brands가 도입한 커피 상자 적재 공정을 참고했습니다. 로봇과 그리퍼는 공개 모델을 사용했고, 설비 배치와 상자 조건은 비교용으로 정했습니다. 목표 경로에서 흡착면의 위치 오차가 5 mm를 넘거나 방향 오차가 2도를 넘으면 집기를 생략했습니다. 통과한 조합은 이송 중 상자를 그리퍼에 고정하고, 놓은 뒤 Isaac Sim에서 중력과 접촉을 계산했습니다. 진공 성능과 설비 간 충돌은 이 시험의 평가 항목에 포함되지 않습니다.</p>
-<p><a href="https://www.universal-robots.com/case-stories/napco-brands/">제조사 적용 사례</a> / <a href="https://robotiq.zendesk.com/hc/en-us/articles/17591533619475-3D-model-for-the-gripper-mesh-file">PowerPick 모델</a> / <a href="media/UR10e-LICENSE.txt">UR10e 라이선스</a> / <a href="media/UR5e-LICENSE.txt">UR5e 라이선스</a></p>
-</details>
 </div>
 </div>
 </section>

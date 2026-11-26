@@ -148,8 +148,8 @@ function showDemo(selected) {
     const id = button.dataset.demo;
     button.setAttribute('aria-pressed', String(id === selected));
     document.querySelector('#' + id + '-legend').hidden = id !== selected;
-    document.querySelector('#' + id + '-conditions').hidden = id !== selected;
   });
+  document.querySelector('#incline-conditions').hidden = palletizing;
   trialResults.hidden = true;
   palletSetup.hidden = !palletizing;
   palletResponse.hidden = true;
