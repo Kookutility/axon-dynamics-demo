@@ -6,8 +6,9 @@
 <meta name="description" content="Axon Dynamics는 제조 및 물류 현장을 직접 방문해 공정을 진단하고, 물리 시뮬레이션으로 개선안을 검증해 현장에 적용합니다.">
 <link rel="icon" href="axon-mark.svg" type="image/svg+xml">
 <title>Axon Dynamics — 제조 및 물류 현장 디지털 전환</title>
-<link rel="stylesheet" href="style.css?v=sample-chat">
-<script src="app.js?v=sample-chat" defer></script>
+<link rel="stylesheet" href="style.css?v=part-trials">
+<script src="pallet-results.js?v=part-trials" defer></script>
+<script src="app.js?v=part-trials" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
@@ -43,19 +44,23 @@
 <p class="eyebrow">액슨 실험실</p>
 <h2>공정 시뮬레이션 데모</h2>
 <div class="choices" role="group" aria-label="시뮬레이션 선택">
-<button type="button" data-demo="incline" aria-pressed="true">경사 이송</button>
-<button type="button" data-demo="palletizing" aria-pressed="false">로봇 팔레트 적재</button>
+<button type="button" data-demo="palletizing" aria-pressed="true">로봇 팔레트 적재</button>
+<button type="button" data-demo="incline" aria-pressed="false">경사 이송</button>
 </div>
 <div class="demo-heading">
-<h3 id="demo-title">경사 이송 구간의 정지 안정성 검증</h3>
+<h3 id="demo-title">커피 상자 팔레트 적재 부품 비교</h3>
 <button class="button small" type="button" id="result-play">시뮬레이션해 보기</button>
 </div>
 <div class="lab">
 <div class="response" aria-label="액슨 예시 채팅">
 <div class="chat-log" aria-live="polite">
 <div class="chat-turn">
-<div class="from-user"><p class="label">나</p><p id="sample-question">18도 경사에서 이송 설비가 멈추면 12 kg 상자가 제자리에 있나요?</p></div>
-<div class="from-axon"><p class="label">액슨</p><p id="sample-answer">접촉면에 따라 달랐어요. 마찰계수 0.10에서는 상자가 경사면을 벗어났고, 0.65에서는 처음 위치에 머물렀습니다.</p></div>
+<div class="from-user"><p class="label">나</p><p id="sample-question">밀봉이 끝난 커피 상자를 팔레트에 올리려면 어떤 로봇과 흡착 그리퍼를 조립하는 게 제일 좋았어요?</p></div>
+<div class="from-axon"><p class="label">액슨</p><p id="sample-answer"></p></div>
+</div>
+<div class="chat-turn" id="pallet-followup">
+<div class="from-user"><p class="label">나</p><p>다른 구성은 어떻게 비교했어요?</p></div>
+<div class="from-axon"><p class="label">액슨</p><p id="sample-followup"></p></div>
 </div>
 </div>
 <div class="chat-form">
@@ -65,22 +70,33 @@
 </div>
 </div>
 <div class="viewer gripper-view">
-<div class="video-legend" id="incline-legend"><span>주황 레인: 마찰계수 0.10</span><span>청록 레인: 마찰계수 0.65</span></div>
-<p class="demo-equipment" id="palletizing-legend" hidden>Universal Robots UR10e와 Robotiq PowerPick</p>
-<video id="result-video" controls playsinline preload="none" src="media/isaac-pallet-incline.mp4?v=factory" poster="media/isaac-frame-118.jpg?v=factory" aria-label="경사 이송 구간의 정지 안정성 검증 영상">
+<div class="video-legend" id="incline-legend" hidden><span>주황 레인: 마찰계수 0.10</span><span>청록 레인: 마찰계수 0.65</span></div>
+<div id="palletizing-legend" class="demo-equipment" aria-live="polite"><strong id="trial-name"></strong><span id="trial-status"></span></div>
+<p id="trial-assembly" class="demo-equipment"></p>
+<video id="result-video" controls playsinline preload="none" aria-label="로봇 팔레트 적재 비교 영상">
 </video>
 <div class="result-controls">
-<a id="result-snapshot" href="media/isaac-frame-118.jpg?v=factory" download>스크린샷 저장</a>
+<a id="result-snapshot" download>스크린샷 저장</a>
 </div>
 <p class="sample" id="media-status" role="status" hidden></p>
-<details class="demo-conditions" id="incline-conditions">
+<details class="demo-conditions" id="incline-conditions" hidden>
 <summary>실험 조건</summary>
 <p>물류 컨베이어의 18° 경사 구간에 12 kg 포장품을 놓고 두 접촉면을 비교했습니다. NVIDIA Isaac Sim의 PhysX 강체 접촉 모델로 이송 정지 시 포장품이 초기 위치를 유지하는지 확인했습니다.</p>
 </details>
-<details class="demo-conditions" id="palletizing-conditions" hidden>
+<section id="trial-results" aria-labelledby="trial-results-title">
+<h4 id="trial-results-title">부품 조합별 결과</h4>
+<p class="demo-equipment">상자 2.5 kg, 동일한 집기 및 배치 위치. 관절 이동량은 여섯 관절이 한 사이클 동안 회전한 각도의 합입니다.</p>
+<div class="trial-scroll">
+<table class="trial-table">
+<thead><tr><th scope="col">부품 조합</th><th scope="col">적재</th><th scope="col">최대 오차</th><th scope="col">관절 이동량</th><th scope="col">영상</th></tr></thead>
+<tbody id="trial-rows"></tbody>
+</table>
+</div>
+</section>
+<details class="demo-conditions" id="palletizing-conditions">
 <summary>실제 사례와 재현 범위</summary>
-<p>Napco Brands는 커피 상자를 밀봉한 뒤 UR10e가 컨베이어에서 집어 팔레트로 옮기는 공정을 도입했습니다. 이 영상은 UR10e와 PowerPick 공개 형상을 쓰고, 데모에서 정한 설비 배치와 경로로 한 번의 적재 동작을 재현합니다. 진공 흡착 중에는 상자를 그리퍼에 고정하고, 놓은 뒤에는 중력과 접촉을 계산했습니다.</p>
-<p><a href="https://www.universal-robots.com/case-stories/napco-brands/">제조사 적용 사례</a> / <a href="https://github.com/google-deepmind/mujoco_menagerie/tree/main/universal_robots_ur10e">UR10e 모델</a> / <a href="https://robotiq.zendesk.com/hc/en-us/articles/17591533619475-3D-model-for-the-gripper-mesh-file">PowerPick 모델</a> / <a href="media/UR10e-LICENSE.txt">UR10e 라이선스</a></p>
+<p>Napco Brands가 도입한 커피 상자 적재 공정을 참고했습니다. 로봇과 그리퍼는 공개 모델을 사용했고, 설비 배치와 상자 조건은 비교용으로 정했습니다. 목표 경로에서 흡착면의 위치 오차가 5 mm를 넘거나 방향 오차가 2도를 넘으면 집기를 생략했습니다. 통과한 조합은 이송 중 상자를 그리퍼에 고정하고, 놓은 뒤 Isaac Sim에서 중력과 접촉을 계산했습니다. 진공 성능과 설비 간 충돌은 이 시험의 평가 항목에 포함되지 않습니다.</p>
+<p><a href="https://www.universal-robots.com/case-stories/napco-brands/">제조사 적용 사례</a> / <a href="https://robotiq.zendesk.com/hc/en-us/articles/17591533619475-3D-model-for-the-gripper-mesh-file">PowerPick 모델</a> / <a href="media/UR10e-LICENSE.txt">UR10e 라이선스</a> / <a href="media/UR5e-LICENSE.txt">UR5e 라이선스</a></p>
 </details>
 </div>
 </div>
