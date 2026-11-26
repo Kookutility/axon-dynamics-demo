@@ -1,7 +1,6 @@
 const video = document.querySelector('#result-video');
 const mediaStatus = document.querySelector('#media-status');
 const demoTitle = document.querySelector('#demo-title');
-const snapshot = document.querySelector('#result-snapshot');
 const sampleQuestion = document.querySelector('#sample-question');
 const sampleAnswer = document.querySelector('#sample-answer');
 const sampleFollowup = document.querySelector('#sample-followup');
@@ -36,7 +35,6 @@ function showMedia(source, image, title) {
   video.poster = image;
   video.setAttribute('aria-label', title + ' 영상');
   video.load();
-  snapshot.href = image;
   mediaStatus.hidden = true;
 }
 
