@@ -66,7 +66,6 @@
 #simulator-motion { color: var(--text); background: var(--panel); border: 1px solid var(--line); padding: 8px 12px; border-radius: 5px; }
 .simulator-strip { margin-top: 24px; overflow: hidden; }
 .simulator-track { display: flex; width: max-content; animation: simulator-scroll 36s linear infinite; }
-.simulator-strip:focus-within .simulator-track,
 .simulator-track.is-paused { animation-play-state: paused; }
 .simulator-logos { display: flex; align-items: center; justify-content: space-between; min-width: 100vw; gap: 44px; margin: 0; padding: 12px 44px 12px 24px; list-style: none; }
 .simulator-logos li { display: flex; align-items: center; gap: 9px; white-space: nowrap; font-size: 1.2rem; font-weight: 750; color: #d8e5e9; }
@@ -154,6 +153,62 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 #trial-name { color: var(--text); font-weight: 560; }
 #trial-status { color: var(--mint); }
 #trial-results { margin-top: 23px; }
+
+.hero {
+  min-height: 0;
+  background: radial-gradient(ellipse at 82% 44%, #142933, var(--ink) 69%);
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  padding-block: clamp(52px, 9vw, 125px);
+}
+.hero .hero-copy { padding: 0; }
+.hero h1 {
+  font-size: clamp(2.25rem, 4.5vw, 4.8rem);
+  line-height: 1.12;
+  font-weight: 590;
+}
+.hero-preview {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #39505d;
+  border-radius: 12px;
+  background: #0b141d;
+}
+.hero-preview figcaption,
+.preview-result {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 14px;
+  padding: 14px 17px;
+  margin: 0;
+  font-size: .85rem;
+}
+.hero-preview span, .vehicle-credit { color: var(--soft); }
+.preview-question {
+  width: fit-content;
+  margin: 0 15px 14px auto;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: #17362d;
+  font-size: .875rem;
+}
+.hero-preview img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.preview-result strong { color: var(--mint); font-weight: 600; }
+.vehicle-demo { border-top: 1px solid var(--line); }
+.vehicle-chart { display: grid; gap: 20px; margin: 0; padding: 24px; }
+.vehicle-chart figcaption, .vehicle-score { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.vehicle-chart figcaption span, .vehicle-score span { color: var(--soft); font-size: .875rem; }
+.vehicle-score meter { flex: 0 0 100%; block-size: 1em; }
+.vehicle-credit { margin: 0; font-size: .75rem; }
+.simulator-logos img.beamng-logo { width: 8em; }
+@media (max-width: 760px) {
+  .hero-grid { grid-template-columns: 1fr; }
+}
 #trial-results h4 { margin: 0 0 6px; font-weight: 560; }
 .trial-scroll { overflow-x: auto; }
 .trial-table { border-collapse: collapse; width: 100%; font-size: .875rem; }

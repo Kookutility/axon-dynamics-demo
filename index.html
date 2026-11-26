@@ -6,39 +6,33 @@
 <meta name="description" content="Axon Dynamics는 제조와 물류 현장의 질문을 물리 시뮬레이션으로 검증하는 산업용 LLM Axon을 개발합니다.">
 <link rel="icon" href="axon-mark.svg" type="image/svg+xml">
 <title>Axon Dynamics — 물리 시뮬레이션 특화 AI</title>
-<link rel="stylesheet" href="style.css?v=parts-loading">
+<link rel="stylesheet" href="style.css?v=physical-ai">
 <script src="pallet-results.js?v=part-trials" defer></script>
-<script src="app.js?v=parts-loading" defer></script>
+<script src="app.js?v=physical-ai" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
 <a class="brand" href="#top"><img src="axon-logo.svg" width="137" height="44" alt="Axon Dynamics"></a>
-<nav aria-label="주 메뉴"><a href="#product">제품</a><a href="#lab">액슨 실험실</a><a href="#about">회사 소개</a></nav>
+<nav aria-label="주 메뉴"><a href="#product">제품</a><a href="#lab">액슨 실험실</a><a href="#deployment">기업 도입</a><a href="#about">회사 소개</a></nav>
 <a class="button small" href="#lab">무료 데모</a>
 </div></header>
 <main>
 <section class="hero" aria-labelledby="title">
-<div class="hero-art"></div>
-<div class="wrap hero-copy">
-<p class="eyebrow">PHYSICAL AI FOR INDUSTRY</p>
-<h1 id="title">현장의 질문을<br>물리 시뮬레이션으로.</h1>
-<p class="intro">Axon은 제조와 물류를 위한 산업용 LLM입니다. 로봇이 상자를 집어 팔레트에 놓을 수 있는지, 하중이 늘면 지지대가 얼마나 휘는지. 현장의 질문을 시뮬레이션 조건으로 바꾸고, 계산 결과와 움직임을 함께 보여주는 시스템을 개발하고 있습니다.</p>
-<a class="button" href="#product">진행 방식 보기</a>
+<div class="wrap hero-grid">
+<div class="hero-copy">
+<p class="eyebrow">AXON / PHYSICAL AI</p>
+<h1 id="title">물리 시뮬레이션으로<br>답하는 AI</h1>
+<p class="intro">Axon은 자연어 질문을 시뮬레이션 조건으로 바꾸는 산업용 LLM입니다. 로봇의 작업 범위부터 차량의 주행 환경까지, 모델이 고른 실험의 결과를 수치와 화면으로 보여주는 서비스를 개발하고 있습니다.</p>
+<a class="button" href="#lab">무료 데모 보기</a>
+<a class="dx-link" href="#product">Axon의 작동 방식</a>
 </div>
-<div class="wrap hero-footer"><span>로봇 팔레트 적재 공정</span><span>연출 이미지</span></div>
-</section>
-<section id="product" class="wrap block">
-<p class="eyebrow">기업 DX 서비스</p>
-<h2>현장 미팅부터 적용까지</h2>
-<p class="section-copy">첫 미팅에서는 작업을 직접 보고, 현장 담당자와 가장 먼저 손볼 공정 하나를 정합니다.</p>
-<ol class="dx-flow">
-<li><h3>현장 방문</h3><p>설비와 작업 동선을 살펴보고, 문제가 언제 반복되는지 듣습니다.</p></li>
-<li><h3>공정 진단</h3><p>도면과 실제 작업 조건으로 현재 공정을 모델링합니다.</p></li>
-<li><h3>파일럿 검증</h3><p>하중이나 설비 설정을 바꿔보고, 기존 조건과 결과를 비교합니다.</p></li>
-<li><h3>현장 적용</h3><p>검증한 조건을 기존 설비에 적용하고, 담당자와 변경 전후를 확인합니다.</p></li>
-</ol>
-<a class="button" href="#lab">공정 검증 데모 체험</a>
-<a class="dx-link" href="#workflow">사내용 전용 LLM 보기</a>
+<figure class="hero-preview">
+<figcaption>Axon Lab <span>Isaac Sim 실험 기록</span></figcaption>
+<p class="preview-question">커피 상자를 팔레트에 옮길 로봇과 흡착 그리퍼를 비교해 줘.</p>
+<img src="media/pallet-ur10e-0-large.jpg" alt="Isaac Sim에서 로봇 팔이 커피 상자 팔레트 적재를 시험하는 화면">
+<p class="preview-result"><strong>UR10e + PowerPick</strong><span>비교한 5개 구성 중 2개 적재 완료</span></p>
+</figure>
+</div>
 </section>
 <section class="wrap block" id="lab">
 <p class="eyebrow">액슨 실험실</p>
@@ -117,13 +111,36 @@
 </div>
 </div>
 </section>
-<section id="workflow" class="workflow"><div class="wrap block">
-<p class="eyebrow">사내용 전용 LLM</p><h2>우리 공정을 아는 사내 AI</h2>
-<p class="section-copy">프로젝트에서 정리한 공정 기준과 검증 결과를 사내용 액슨에 연결합니다. 생산팀은 “팔레트가 500 kg이면 지지대가 얼마나 휘어?”처럼 평소 쓰는 말로 묻고, 설비팀은 같은 조건과 결과를 확인할 수 있습니다.</p>
+<section class="wrap block vehicle-demo" id="vehicle-lab" aria-labelledby="vehicle-title">
+<p class="eyebrow">액슨 실험실 / BeamNG.tech</p>
+<h2 id="vehicle-title">차량 시뮬레이션 데모</h2>
+<p class="section-copy">도로에 떨어진 물체를 낮과 밤에 얼마나 분명하게 식별하는지 본 48건의 실험입니다.</p>
+<div class="lab">
+<div class="response" aria-label="차량 실험 예시 채팅">
+<div class="chat-log">
+<div class="chat-turn"><div class="from-user"><p class="label">나</p><p>BeamNG에서 기록한 주행 실험을 기준으로, 낮과 밤에 도로 위 장애물을 얼마나 잘 식별했는지 비교해 줘.</p></div></div>
+<div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>낮 24건과 밤 24건의 식별 점수를 비교했습니다. 평균은 낮 4.54점, 밤 3.13점으로, 밤 실험에서 1.42점 낮았습니다.</p></div></div>
+<div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>두 조건의 결과를 그래프로 정리했습니다. 서로 다른 장애물이 포함된 실험이라 조명만의 영향으로 해석하기는 어렵습니다.</p></div></div>
+</div>
+<div class="chat-compose"><input type="text" aria-label="차량 데모 채팅 입력" placeholder="기능 준비 중" disabled></div>
+</div>
+<div class="viewer vehicle-view">
+<figure class="vehicle-chart">
+<figcaption>장애물 식별 점수 <span>5점 척도</span></figcaption>
+<div class="vehicle-score"><span>낮 / 24건</span><strong>4.54점</strong><meter min="0" max="5" value="4.54167" aria-label="낮 평균 식별 점수">4.54점</meter></div>
+<div class="vehicle-score"><span>밤 / 24건</span><strong>3.13점</strong><meter min="0" max="5" value="3.125" aria-label="밤 평균 식별 점수">3.13점</meter></div>
+<p class="vehicle-credit">BeamNG 주행 기록 48건을 바탕으로 집계</p>
+</figure>
+</div>
+</div>
+</section>
+<section id="product" class="workflow"><div class="wrap block">
+<p class="eyebrow">Axon</p><h2>질문에서 시뮬레이션 결과까지</h2>
+<p class="section-copy">“팔레트가 500 kg이면 지지대가 얼마나 휘어?” Axon은 질문에서 하중과 검토 대상을 읽고, 구조 해석에 맞는 모델을 고른 뒤 계산에 사용한 조건과 결과를 함께 보여주는 구조로 설계하고 있습니다.</p>
 <div class="steps">
 <article><b>질문 분석</b><p>자연어 질문에서 작업 조건, 제약, 확인할 결과를 추출합니다.</p></article>
 <article><b>산업과 공정 분류</b><p>기업의 공정 맥락과 검토할 물리 현상을 파악합니다.</p></article>
-<article><b>모델 선택</b><p>재료, 형상, 하중에 맞는 시뮬레이션 계산에 적합한 모델을 고릅니다.</p></article>
+<article><b>모델 선택</b><p>재료, 형상, 하중에 맞는 모델을 고릅니다.</p></article>
 <article><b>서버 실행 및 검토</b><p>설정한 조건으로 시뮬레이션을 실행하고 결과를 검토합니다.</p></article>
 <article><b>답변 및 결과 화면</b><p>실험 조건과 계산 결과를 설명하고 결과 화면을 함께 제공합니다.</p></article>
 </div></div></section>
@@ -150,6 +167,19 @@
 </article>
 </div>
 </section>
+<section id="deployment" class="wrap block">
+<p class="eyebrow">기업 도입</p>
+<h2>현장 미팅부터 적용까지</h2>
+<p class="section-copy">첫 미팅에서는 작업을 직접 보고, 현장 담당자와 가장 먼저 손볼 공정 하나를 정합니다.</p>
+<ol class="dx-flow">
+<li><h3>현장 방문</h3><p>설비와 작업 동선을 살펴보고, 문제가 언제 반복되는지 듣습니다.</p></li>
+<li><h3>공정 진단</h3><p>도면과 실제 작업 조건으로 현재 공정을 모델링합니다.</p></li>
+<li><h3>파일럿 검증</h3><p>하중이나 설비 설정을 바꿔보고, 기존 조건과 결과를 비교합니다.</p></li>
+<li><h3>현장 적용</h3><p>검증한 조건을 기존 설비에 적용하고, 담당자와 변경 전후를 확인합니다.</p></li>
+</ol>
+<a class="button" href="#lab">공정 검증 데모 체험</a>
+<a class="dx-link" href="#product">사내용 전용 LLM 보기</a>
+</section>
 <section id="about" class="wrap block about">
 <div><p class="eyebrow">회사 소개</p><h2>Axon Dynamics</h2></div>
 <div><p>Axon Dynamics는 언어 모델과 물리 시뮬레이션을 연결하는 산업용 AI를 개발합니다. 공장과 물류센터를 직접 방문해 담당자와 먼저 시험할 공정을 정하고, 실제 설비의 치수와 작업 조건을 반영해 변경안을 비교합니다. 프로젝트에서 쌓인 공정 기준과 검증 결과는 고객사 팀이 사내 Axon에서 다시 활용할 수 있도록 구성합니다.</p></div>
@@ -164,6 +194,7 @@
 <ul class="simulator-logos">
 <li><img src="logos/unity.svg" alt="">Unity</li>
 <li><img src="logos/isaac.svg" alt="">NVIDIA Isaac Sim</li>
+<li><img class="beamng-logo" src="logos/beamng-tech.svg#bng-tech-white" alt="BeamNG.tech"></li>
 <li><img class="wordmark" src="logos/mujoco.svg" alt="MuJoCo"></li>
 <li><img src="logos/gazebo.png" alt="">Gazebo</li>
 <li><img src="logos/webots.png" alt="">Webots</li>
