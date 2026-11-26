@@ -177,6 +177,11 @@ demoButtons.forEach(button => button.addEventListener('click', () => {
   if (button.getAttribute('aria-pressed') !== 'true') showDemo(button.dataset.demo);
 }));
 document.querySelector('#result-play').addEventListener('click', playVideo);
+document.querySelector('#preview-trials-link').addEventListener('click', () => {
+  if (document.querySelector('[data-demo="palletizing"]').getAttribute('aria-pressed') !== 'true') {
+    showDemo('palletizing');
+  }
+});
 showDemo('palletizing');
 
 function appendChatMessage(messages, sender, label, text) {
@@ -208,27 +213,51 @@ document.querySelectorAll('form.chat-compose').forEach(form => {
   });
 });
 
+const dockCase = document.querySelector('#dock-case');
+const dockVideo = document.querySelector('#dock-video');
+const dockCsv = document.querySelector('#dock-csv');
+const dockDataStatus = document.querySelector('#dock-data-status');
+const dockFields = ['time', 'gap', 'depth'].map(name => document.querySelector('#dock-' + name));
+let dockReadings = [];
+let dockRequest;
+
+function updateDockReadings() {
+  const row = dockReadings[Math.min(dockReadings.length - 1, Math.floor(dockVideo.currentTime * 12))];
+  const values = row ? [row[0].toFixed(2) + ' s', row[2].toFixed(2) + ' m', row[3].toFixed(5)] : ['—', '—', '—'];
+  dockFields.forEach((field, index) => { field.textContent = values[index]; });
+}
+
+async function loadDockCase() {
+  dockRequest?.abort();
+  const request = new AbortController();
+  dockRequest = request;
+  const path = 'media/dock-' + dockCase.value;
+  dockVideo.pause();
+  dockVideo.poster = path + '.jpg';
+  dockVideo.src = path + '.mp4';
+  dockCsv.href = path + '.csv';
+  dockDataStatus.hidden = true;
+  dockReadings = [];
+  updateDockReadings();
+  try {
+    const response = await fetch(dockCsv.href, { signal: request.signal });
+    if (!response.ok) throw new Error('Sensor log unavailable');
+    const csv = await response.text();
+    if (request.signal.aborted) return;
+    dockReadings = csv.trim().split(/\r?\n/).slice(1).map(row => row.split(',').map(Number));
+    updateDockReadings();
+  } catch {
+    if (request.signal.aborted) return;
+    dockDataStatus.textContent = '센서 기록을 불러오지 못했습니다.';
+    dockDataStatus.hidden = false;
+  }
+}
+
+dockCase.addEventListener('change', loadDockCase);
+dockVideo.addEventListener('timeupdate', updateDockReadings);
+loadDockCase();
+
 const logoTrack = document.querySelector('.simulator-track');
 const logoCopy = logoTrack.firstElementChild.cloneNode(true);
 logoCopy.setAttribute('aria-hidden', 'true');
 logoTrack.append(logoCopy);
-
-const motionButton = document.querySelector('#simulator-motion');
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-let logosPlaying = !reducedMotion.matches;
-
-function updateLogoMotion() {
-  logoTrack.parentElement.classList.toggle('motion-enabled', logosPlaying);
-  logoTrack.classList.toggle('is-paused', !logosPlaying);
-  motionButton.textContent = logosPlaying ? '로고 정지' : '로고 재생';
-}
-
-motionButton.addEventListener('click', () => {
-  logosPlaying = !logosPlaying;
-  updateLogoMotion();
-});
-reducedMotion.addEventListener('change', event => {
-  logosPlaying = !event.matches;
-  updateLogoMotion();
-});
-updateLogoMotion();

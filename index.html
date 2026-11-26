@@ -6,9 +6,9 @@
 <meta name="description" content="Axon Dynamics는 제조와 물류 현장의 질문을 물리 시뮬레이션으로 검증하는 산업용 LLM Axon을 개발합니다.">
 <link rel="icon" href="axon-mark.svg" type="image/svg+xml">
 <title>Axon Dynamics — 물리 시뮬레이션 특화 AI</title>
-<link rel="stylesheet" href="style.css?v=preview-comparison">
+<link rel="stylesheet" href="style.css?v=dock-replay">
 <script src="pallet-results.js?v=part-trials" defer></script>
-<script src="app.js?v=warehouse-lab" defer></script>
+<script src="app.js?v=dock-replay" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
@@ -28,7 +28,7 @@
 </div>
 <figure class="hero-preview">
 <figcaption>Axon Lab <span>Isaac Sim / 포장 라인 말단</span></figcaption>
-<p class="preview-question">커피 상자를 팔레트에 옮길 로봇과 흡착 그리퍼를 비교해 줘.</p>
+<p class="preview-question">2.5 kg 커피 상자를 팔레트에 옮길 때, 집기와 적재를 마치면서 관절 이동이 가장 적은 조합은 뭐야?</p>
 <video controls playsinline preload="none" poster="media/warehouse-palletizing.jpg" aria-label="Isaac Sim 창고에서 컨베이어의 상자를 팔레트에 옮기는 영상">
 <source src="media/warehouse-palletizing.mp4" type="video/mp4">
 </video>
@@ -42,7 +42,8 @@
 <tr><th scope="row">나머지 3개 조합</th><td>적재 미완료</td><td>—</td></tr>
 </tbody>
 </table>
-<a href="#trial-results">5개 조합의 결과와 영상 보기</a>
+<p>영상의 0 mm 조합은 적재를 마친 두 구성 중 관절 이동량이 48.4° 적었습니다.</p>
+<a id="preview-trials-link" href="#trial-results">5개 조합의 결과와 영상 보기</a>
 </div>
 </figure>
 </div>
@@ -78,7 +79,7 @@
 <div class="response" aria-label="액슨 예시 채팅">
 <div class="chat-log" aria-live="polite">
 <div class="chat-turn">
-<div class="from-user"><p class="label">나</p><p id="sample-question">밀봉이 끝난 커피 상자를 팔레트에 올리려면 어떤 로봇과 흡착 그리퍼를 조립하는 게 제일 좋겠는지 추천해 주고, 직접 시뮬레이션 돌려줘.</p></div>
+<div class="from-user"><p class="label">나</p><p id="sample-question">밀봉한 2.5 kg 커피 상자를 팔레트에 올릴 때, 집기와 배치를 마치면서 관절 이동이 가장 적은 로봇과 흡착 그리퍼 조합을 시뮬레이션으로 찾아줘.</p></div>
 <div class="from-axon" id="incline-chat-answer" hidden><p class="label">액슨</p><p id="incline-answer"></p></div>
 </div>
 <div class="chat-turn" id="pallet-setup">
@@ -105,7 +106,7 @@
 <div class="chat-messages" role="log" aria-label="직접 입력한 대화"></div>
 <form class="chat-compose">
 <input name="message" type="text" aria-label="액슨에게 질문하기" placeholder="액슨에게 질문하기" maxlength="1000" required>
-<button type="submit" class="button small">보내기</button>
+<button type="submit" class="chat-send" aria-label="보내기">↑</button>
 </form>
 </div>
 <div class="viewer gripper-view">
@@ -143,29 +144,42 @@
 <section class="wrap block vehicle-demo" id="vehicle-lab" aria-labelledby="vehicle-title">
 <p class="eyebrow">액슨 실험실 / BeamNG.tech</p>
 <h2 id="vehicle-title">차량 시뮬레이션 데모</h2>
-<p class="section-copy">물류 야드에서 후진하는 차량의 경고 센서를 어떻게 시험할지 보여주는 예시입니다.</p>
+<p class="section-copy">같은 후진 경로에서 시간대와 팔레트 위치를 바꿔 후방 카메라의 시야를 비교합니다.</p>
 <div class="lab">
 <div class="response" aria-label="차량 실험 예시 채팅">
 <div class="chat-log">
-<div class="chat-turn"><div class="from-user"><p class="label">나</p><p>납품 밴이 도크에 후진할 때, 차 뒤에 놓인 빈 팔레트를 후방 카메라가 충분히 일찍 잡을까? 어두운 도크에서도 확인해 줘.</p></div></div>
-<div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>차량과 카메라 위치, 후진 경로는 그대로 두고 도크 조명만 바꿔 비교할게요. 팔레트는 바닥 중앙과 도크 가장자리에 각각 놓아 보겠습니다.</p></div></div>
-<div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>먼저 차량이 팔레트에서 얼마나 떨어졌을 때 화면에 처음 보이는지 기록하겠습니다. 감지 모델을 연결하면 최초 감지 거리와 미검출 구간도 비교할 수 있어요.</p></div></div>
+<div class="chat-turn"><div class="from-user"><p class="label">나</p><p>납품 밴이 도크로 후진할 때, 빈 팔레트가 카메라에 몇 미터 앞에서 보일까? 차로 중앙과 가장자리, 낮과 밤을 비교해 줘.</p></div></div>
+<div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>낮에는 중앙과 가장자리 모두 약 6.25 m 떨어진 첫 프레임에서 팔레트가 보였습니다. 별도 조명 없이 촬영한 밤에는 RGB 화면에서 팔레트 윤곽이 훨씬 흐렸습니다. 6.25 m는 시험 시작 거리입니다.</p></div></div>
+<div class="chat-turn"><div class="from-user"><p class="label">나</p><p>야간이나 차로 가장자리도 놓치지 않으려면 어떤 센서를 비교해 볼까?</p></div></div>
+<div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>같은 위치에 저조도 광각 카메라를 달고, 범퍼 양쪽에 근거리 센서를 추가한 구성을 다음 시험 후보로 볼 수 있어요. 같은 네 조건에서 팔레트를 처음 감지하는 거리와 화면에서 놓치는 구간을 비교하면 됩니다.</p></div></div>
 </div>
 <div class="chat-messages" role="log" aria-label="직접 입력한 차량 데모 대화"></div>
 <form class="chat-compose">
 <input name="message" type="text" aria-label="액슨에게 차량 시뮬레이션 질문하기" placeholder="액슨에게 질문하기" maxlength="1000" required>
-<button type="submit" class="button small">보내기</button>
+<button type="submit" class="chat-send" aria-label="보내기">↑</button>
 </form>
 </div>
 <div class="viewer vehicle-view">
 <div class="vehicle-plan">
 <h3>도크 후진 시야 시험</h3>
-<dl>
-<div><dt>고정 조건</dt><dd>납품 밴, 후진 경로, 카메라 장착 위치</dd></div>
-<div><dt>비교 조건</dt><dd>도크 조명 켜짐 / 꺼짐, 팔레트 중앙 / 가장자리</dd></div>
-<div><dt>확인 항목</dt><dd>최초 가시 거리, 사각 구간</dd></div>
+<div class="dock-controls">
+<label for="dock-case">시험 조건</label>
+<select id="dock-case">
+<option value="day-center">낮 / 중앙</option>
+<option value="day-edge">낮 / 가장자리</option>
+<option value="night-center">밤 / 중앙</option>
+<option value="night-edge">밤 / 가장자리</option>
+</select>
+</div>
+<video id="dock-video" controls playsinline preload="none" src="media/dock-day-center.mp4" poster="media/dock-day-center.jpg" aria-label="후방 카메라, 외부 시점, 깊이 화면과 센서 로그"></video>
+<dl class="dock-telemetry">
+<div><dt>기록 시각</dt><dd id="dock-time">—</dd></div>
+<div><dt>카메라와 팔레트의 종방향 간격</dt><dd id="dock-gap">—</dd></div>
+<div><dt>화면 중앙 깊이 원시값</dt><dd id="dock-depth">—</dd></div>
 </dl>
-<p>예시 시험 계획 / 실행 전</p>
+<p id="dock-data-status" role="status" hidden></p>
+<a id="dock-csv" href="media/dock-day-center.csv" download>센서 기록 CSV</a>
+<p>지정 경로 재생. 깊이 원시값은 거리 단위가 아닙니다. Content shown courtesy of BeamNG GmbH.</p>
 </div>
 </div>
 </div>
@@ -223,9 +237,8 @@
 <section class="simulators" aria-labelledby="simulators-title">
 <div class="wrap simulator-heading">
 <div><h2 id="simulators-title">시뮬레이션 도구</h2></div>
-<button type="button" id="simulator-motion">로고 정지</button>
 </div>
-<div class="simulator-strip" tabindex="0" aria-label="시뮬레이션 도구 로고">
+<div class="simulator-strip" aria-label="시뮬레이션 도구 로고">
 <div class="simulator-track">
 <ul class="simulator-logos">
 <li><img src="logos/unity.svg" alt="">Unity</li>
@@ -244,6 +257,6 @@
 </div>
 </section>
 </main>
-<footer><div class="wrap nav"><a class="brand" href="#top"><img src="axon-logo.svg" width="137" height="44" alt="Axon Dynamics"></a><div><a href="#about">회사 소개</a><a href="#lab">무료 데모</a></div></div></footer>
+<footer id="contact"><div class="wrap nav"><a class="brand" href="#top"><img src="axon-logo.svg" width="137" height="44" alt="Axon Dynamics"></a><div><a href="#about">회사 소개</a><a href="#lab">무료 데모</a><a href="mailto:gusdn555@gmail.com">문의 / gusdn555@gmail.com</a></div></div></footer>
 </body></html>
 

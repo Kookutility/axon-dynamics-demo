@@ -23,20 +23,41 @@
 .chat-turn .label { margin-bottom: 4px; letter-spacing: .04em; color: var(--mint); }
 .chat-turn > .from-axon { justify-self: start; background: #182637; border-color: #2d435a; }
 .chat-turn > .from-axon .label { color: #a9c9ec; }
-.chat-form label { display: inline-block; margin-bottom: 8px; font-weight: 650; }
-.chat-compose { display: flex; gap: 8px; align-items: stretch; }
+.chat-compose {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 5px 5px 5px 14px;
+  border: 1px solid #344754;
+  border-radius: 16px;
+  background: #101b24;
+}
+.chat-compose:focus-within { border-color: var(--mint); }
 .chat-compose input {
   flex: 1;
   min-width: 0;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  background: #080f15;
+  padding: 7px 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
   color: var(--text);
   font: inherit;
+  font-size: .9rem;
 }
-.chat-compose button { border: 0; }
-.chat-compose input:focus-visible, .chat-log:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+.chat-send {
+  display: grid;
+  flex: 0 0 36px;
+  height: 36px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 11px;
+  background: var(--mint);
+  color: #06201b;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+.chat-send:hover { background: #b5ffec; }
 
 .hero h1 { max-width: 760px; font-size: clamp(3rem, 6.5vw, 6.1rem); line-height: .97; text-wrap: balance; }
 .hero h1 em { display: block; }
@@ -64,21 +85,14 @@
 .simulator-heading { display: flex; gap: 16px; flex-wrap: wrap; justify-content: space-between; align-items: center; }
 .simulator-heading h2 { font-size: 1.65rem; margin-bottom: 8px; }
 .simulator-heading p { color: var(--soft); margin: 0; }
-#simulator-motion { color: var(--text); background: var(--panel); border: 1px solid var(--line); padding: 8px 12px; border-radius: 5px; }
 .simulator-strip { margin-top: 24px; overflow: hidden; }
 .simulator-track { display: flex; width: max-content; animation: simulator-scroll 36s linear infinite; }
-.simulator-track.is-paused { animation-play-state: paused; }
 .simulator-logos { display: flex; align-items: center; justify-content: space-between; min-width: 100vw; gap: 44px; margin: 0; padding: 12px 44px 12px 24px; list-style: none; }
 .simulator-logos li { display: flex; align-items: center; gap: 9px; white-space: nowrap; font-size: 1.2rem; font-weight: 750; color: #d8e5e9; }
 .simulator-logos img { width: 1.55em; height: 1.55em; object-fit: contain; }
 .simulator-logos img[src$=".svg"] { filter: invert(1); }
 .simulator-logos img.wordmark { width: 5em; filter: brightness(0) invert(1); }
 @keyframes simulator-scroll { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) {
-  .simulator-strip:not(.motion-enabled) { overflow-x: auto; }
-  .simulator-strip:not(.motion-enabled) .simulator-track { animation: none; }
-  .simulator-strip:not(.motion-enabled) .simulator-logos[aria-hidden="true"] { display: none; }
-}
 @media (max-width: 960px) {
   .workflow .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
@@ -203,6 +217,7 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .preview-comparison th { font-weight: 550; }
 .preview-comparison td:last-child { white-space: nowrap; }
 .preview-comparison strong, .preview-comparison a { color: var(--mint); }
+.preview-comparison p { margin: 8px 0 0; color: var(--soft); }
 .preview-comparison a { display: inline-block; margin-top: 8px; text-decoration: underline; text-underline-offset: 3px; }
 .offerings { padding-bottom: 18px; }
 .offering-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
@@ -221,10 +236,14 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .offering-link { margin-top: auto; padding-block: 6px; color: var(--mint); text-decoration: underline; text-underline-offset: 4px; }
 .vehicle-demo { border-top: 1px solid var(--line); }
 .vehicle-plan { padding: 24px; }
-.vehicle-plan dl { grid-template-columns: 1fr; }
-.vehicle-plan dl div { padding: 12px 0; border-bottom: 1px solid var(--line); }
-.vehicle-plan dl div + div { border-left: 0; }
+.dock-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; font-size: .875rem; }
+.dock-controls select { padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; font: inherit; }
+#dock-video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #080c10; border-radius: 8px; }
+.vehicle-plan dl { margin: 13px 0; border-bottom: 1px solid var(--line); }
+.vehicle-plan dl div { padding: 9px; }
+.vehicle-plan dt { font-size: .75rem; }
 .vehicle-plan dd { font-size: .95rem; font-weight: 500; }
+.vehicle-plan a { color: var(--mint); text-decoration: underline; text-underline-offset: 3px; }
 .vehicle-plan p { margin: 14px 0 0; color: var(--soft); font-size: .8rem; }
 .simulator-logos img.beamng-logo { width: 8em; }
 @media (max-width: 760px) {
