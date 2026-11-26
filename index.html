@@ -6,9 +6,9 @@
 <meta name="description" content="Axon에서 로봇과 차량의 물리 시뮬레이션을 살펴보세요. 시험 조건부터 결과 수치와 영상까지 한 화면에서 확인할 수 있습니다.">
 <link rel="icon" href="axon-mark.svg?v=wordmark" type="image/svg+xml" sizes="any">
 <title>Axon Dynamics — 물리 시뮬레이션 특화 AI</title>
-<link rel="stylesheet" href="style.css?v=lab-wordmark">
+<link rel="stylesheet" href="style.css?v=dock-workflow">
 <script src="pallet-results.js?v=part-trials" defer></script>
-<script src="app.js?v=lab-controls" defer></script>
+<script src="app.js?v=dock-workflow" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
@@ -85,7 +85,7 @@
 <section class="wrap block" id="lab" aria-labelledby="lab-title">
 <h2 id="lab-title"><img src="axon-logo.svg" width="100" height="32" alt="Axon Dynamics">Axon 실험실</h2>
 <section class="lab-case" id="pallet-lab" aria-labelledby="pallet-title">
-<h3 class="lab-case-title" id="pallet-title">로봇 적재 및 이송 검증</h3>
+<h3 class="lab-case-title" id="pallet-title"><span class="lab-case-number">사례 #1</span> 로봇 적재 및 이송 검증</h3>
 <div class="choices" role="group" aria-label="시뮬레이션 선택">
 <button type="button" data-demo="palletizing" aria-pressed="true">로봇 팔레트 적재</button>
 <button type="button" data-demo="incline" aria-pressed="false">경사 이송</button>
@@ -159,15 +159,30 @@
 </div>
 </section>
 <section class="lab-case" id="vehicle-lab" aria-labelledby="vehicle-title">
-<h3 class="lab-case-title" id="vehicle-title">물류 도크 후진 시야 검증</h3>
+<h3 class="lab-case-title" id="vehicle-title"><span class="lab-case-number">사례 #2</span> 물류 도크 후진 시야 검증</h3>
 <p class="section-copy">같은 후진 경로에서 시간대와 팔레트 위치를 바꿔 후방 카메라의 시야를 비교합니다.</p>
 <div class="lab">
 <div class="response" aria-label="차량 실험 예시 채팅">
 <div class="chat-log">
 <div class="chat-turn"><div class="from-user"><p class="label">나</p><p>납품 밴이 도크로 후진할 때, 빈 팔레트가 카메라에 몇 미터 앞에서 보일까? 차로 중앙과 가장자리, 낮과 밤을 비교해 줘.</p></div></div>
+<div class="chat-turn"><div class="from-axon">
+<p class="label">Axon</p>
+<ul class="chat-progress">
+<li>질문 분석 완료: 후방 카메라의 팔레트 가시 거리</li>
+<li>공정 분류 완료: 물류 도크 차량 후진</li>
+</ul>
+<button type="button" class="chat-choice" id="dock-start">시험 조건 비교해 주세요</button>
+<ol class="chat-progress" id="dock-progress" role="status" hidden>
+<li id="dock-model-step">차량 모델과 카메라, 비교 조건 선택 중</li>
+<li id="dock-run-step" hidden>BeamNG.tech 실행 기록을 불러오는 중</li>
+<li id="dock-review-step" hidden>결과 검토 완료: 전후 시점과 센서 기록 비교</li>
+</ol>
+</div></div>
+<div id="dock-chat-results" hidden>
 <div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>낮에는 중앙과 가장자리 모두 약 6.25 m 떨어진 첫 프레임에서 팔레트가 보였습니다. 별도 조명 없이 촬영한 밤에는 RGB 화면에서 팔레트 윤곽이 훨씬 흐렸습니다. 6.25 m는 시험 시작 거리입니다.</p></div></div>
 <div class="chat-turn"><div class="from-user"><p class="label">나</p><p>야간이나 차로 가장자리도 놓치지 않으려면 어떤 센서를 비교해 볼까?</p></div></div>
 <div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>같은 위치에 저조도 광각 카메라를 달고, 범퍼 양쪽에 근거리 센서를 추가한 구성을 다음 시험 후보로 볼 수 있어요. 같은 네 조건에서 팔레트를 처음 감지하는 거리와 화면에서 놓치는 구간을 비교하면 됩니다.</p></div></div>
+</div>
 </div>
 <div class="chat-messages" role="log" aria-label="직접 입력한 차량 시뮬레이션 대화"></div>
 <form class="chat-compose">
@@ -178,6 +193,8 @@
 <div class="viewer vehicle-view">
 <div class="vehicle-plan">
 <h4>도크 후진 영상 및 센서 기록</h4>
+<p id="dock-wait">시험 조건 비교를 요청하면 검증이 시작됩니다.</p>
+<div id="dock-results" hidden>
 <div class="dock-controls">
 <label for="dock-case">시험 조건</label>
 <select id="dock-case">
@@ -187,13 +204,14 @@
 <option value="night-edge">밤 / 가장자리</option>
 </select>
 </div>
-<video id="dock-video" controls playsinline preload="none" src="media/dock-day-center.mp4" poster="media/dock-day-center.jpg" aria-label="후방 카메라, 외부 시점, 깊이 화면과 센서 로그"></video>
+<video id="dock-video" controls playsinline preload="none" aria-label="후방 카메라, 외부 시점, 깊이 화면과 센서 로그"></video>
 <dl class="dock-telemetry">
 <div><dt>기록 시각</dt><dd id="dock-time">—</dd></div>
 <div><dt>카메라와 팔레트의 종방향 간격</dt><dd id="dock-gap">—</dd></div>
 <div><dt>화면 중앙 깊이 원시값</dt><dd id="dock-depth">—</dd></div>
 </dl>
 <p id="dock-data-status" role="status" hidden></p>
+</div>
 </div>
 </div>
 </div>

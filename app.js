@@ -275,7 +275,36 @@ async function loadDockCase() {
 
 dockCase.addEventListener('change', loadDockCase);
 dockVideo.addEventListener('timeupdate', updateDockReadings);
-loadDockCase();
+
+const dockStart = document.querySelector('#dock-start');
+const dockProgress = document.querySelector('#dock-progress');
+const dockModelStep = document.querySelector('#dock-model-step');
+const dockRunStep = document.querySelector('#dock-run-step');
+const dockReviewStep = document.querySelector('#dock-review-step');
+const dockWait = document.querySelector('#dock-wait');
+
+dockStart.addEventListener('click', () => {
+  dockStart.hidden = true;
+  dockProgress.hidden = false;
+  dockModelStep.classList.add('chat-loading');
+  dockWait.textContent = '차량 모델과 카메라, 비교 조건을 선택하고 있습니다.';
+
+  setTimeout(async () => {
+    dockModelStep.classList.remove('chat-loading');
+    dockModelStep.textContent = '모델 선택 완료: BeamNG.tech 납품 밴과 후방 카메라, 주야간 4개 조건';
+    dockRunStep.hidden = false;
+    dockRunStep.classList.add('chat-loading');
+    dockWait.textContent = '저장된 시뮬레이션 영상과 센서 기록을 불러오고 있습니다.';
+
+    await Promise.all([loadDockCase(), new Promise(resolve => setTimeout(resolve, 3000))]);
+    dockRunStep.classList.remove('chat-loading');
+    dockRunStep.textContent = 'BeamNG.tech 실행 기록 확인 완료';
+    dockReviewStep.hidden = false;
+    dockWait.hidden = true;
+    document.querySelector('#dock-chat-results').hidden = false;
+    document.querySelector('#dock-results').hidden = false;
+  }, 3000);
+}, { once: true });
 
 const logoTrack = document.querySelector('.simulator-track');
 const logoCopy = logoTrack.firstElementChild.cloneNode(true);

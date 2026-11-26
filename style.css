@@ -228,6 +228,8 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .offering p:not(.eyebrow) { color: var(--soft); line-height: 1.65; word-break: keep-all; }
 .offering-link { margin-top: auto; padding-block: 6px; color: var(--mint); text-decoration: underline; text-underline-offset: 4px; }
 .lab-case-title { margin: 0 0 12px; font-size: clamp(1.2rem, 2.5vw, 1.7rem); }
+.lab-case-number { margin-inline-end: .35em; color: var(--mint); font-size: .62em; white-space: nowrap; }
+#dock-start[hidden], #dock-progress[hidden] { display: none; }
 #lab-title { display: flex; align-items: center; gap: 12px; }
 #lab-title img { flex: none; border-radius: 10px; }
 #lab > .lab-case { margin-top: 26px; }
