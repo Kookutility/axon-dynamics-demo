@@ -187,8 +187,7 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .hero-preview {
   margin: 0;
   overflow: hidden;
-  border: 1px solid #39505d;
-  border-radius: 12px;
+  border-inline-start: 1px solid #39505d;
   background: #0b141d;
 }
 .hero-preview figcaption {
@@ -261,7 +260,6 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .hero-workspace {
   display: grid;
   grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
-  gap: 14px;
   align-items: stretch;
 }
 .preview-chat, .lab > .response {
@@ -271,21 +269,20 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
   border: 1px solid #d8e5de;
   border-radius: 12px;
 }
-.preview-chat { display: flex; flex-direction: column; padding: 0 18px 16px; }
+.preview-chat { display: flex; flex-direction: column; padding: 0 18px 16px; border: 0; border-radius: 0; }
 .preview-chat .chat-compose { margin-top: auto; }
-.preview-chat-header {
+.axon-window { overflow: hidden; border: 1px solid #39505d; border-radius: 14px; }
+.axon-window-header {
   display: flex;
   align-items: center;
   gap: 10px;
   min-height: 47px;
-  margin: 0 -18px;
   padding: 0 16px;
-  border-bottom: 1px solid #dce7e0;
-  background: #fff;
-  border-radius: 11px 11px 0 0;
+  border-bottom: 1px solid #39505d;
+  background: #14202a;
 }
-.preview-chat-header img { padding: 5px; border-radius: 8px; background: #11372d; }
-.preview-chat-header h2 { margin: 0; font-size: .9rem; letter-spacing: 0; font-weight: 650; }
+.axon-window-header img { padding: 5px; border-radius: 8px; background: #11372d; }
+.axon-window-header h2 { margin: 0; font-size: .9rem; letter-spacing: 0; font-weight: 650; }
 .preview-chat-body { padding-top: 18px; }
 :is(.preview-chat, .response) .chat-turn > div {
   padding: 10px 13px;
@@ -325,6 +322,7 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 }
 @media (max-width: 760px) {
   .hero-workspace { grid-template-columns: 1fr; }
+  .hero-preview { border-inline-start: 0; border-top: 1px solid #39505d; }
 }
 @media (min-width: 761px) {
   .hero-preview video { max-height: min(320px, 40svh); }
