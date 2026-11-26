@@ -6,7 +6,7 @@
 <meta name="description" content="Axon에서 로봇과 차량의 물리 시뮬레이션을 살펴보세요. 시험 조건부터 결과 수치와 영상까지 한 화면에서 확인할 수 있습니다.">
 <link rel="icon" href="axon-mark.svg" type="image/svg+xml">
 <title>Axon Dynamics — 물리 시뮬레이션 특화 AI</title>
-<link rel="stylesheet" href="style.css?v=compact-workspace">
+<link rel="stylesheet" href="style.css?v=lab-cases">
 <script src="pallet-results.js?v=part-trials" defer></script>
 <script src="app.js?v=compact-workspace" defer></script>
 </head>
@@ -14,7 +14,7 @@
 <header id="top"><div class="wrap nav">
 <a class="brand" href="#top"><img src="axon-logo.svg" width="137" height="44" alt="Axon Dynamics"></a>
 <nav aria-label="주 메뉴"><a href="#product">제품</a><a href="#lab">액슨 실험실</a><a href="#deployment">기업 도입</a><a href="#about">회사 소개</a></nav>
-<a class="button small" href="#lab">무료 데모</a>
+<a class="button small" href="#lab">실험실 보기</a>
 </div></header>
 <main>
 <section class="hero" aria-labelledby="title">
@@ -23,7 +23,7 @@
 <p class="eyebrow">AXON / PHYSICAL AI</p>
 <h1 id="title">시뮬레이션으로 답하는 AI</h1>
 <p class="intro">로봇과 차량의 시험 조건을 비교하고, 결과를 수치와 영상으로 확인하세요.</p>
-<a class="button" href="#lab">무료 데모 보기</a>
+<a class="button" href="#lab">액슨 실험실 보기</a>
 <a class="dx-link" href="#product">Axon의 작동 방식</a>
 </div>
 <div class="hero-workspace">
@@ -70,7 +70,7 @@
 <p class="eyebrow">개인용</p>
 <h3>Axon</h3>
 <p>물리 시뮬레이션을 활용하는 LLM. 평소 쓰는 말로 질문하고, 어떤 조건을 시험했는지와 계산 결과를 한 화면에서 확인하는 제품입니다.</p>
-<a class="offering-link" href="#lab">무료 데모 보기 <span aria-hidden="true">↗</span></a>
+<a class="offering-link" href="#lab">검증 사례 보기 <span aria-hidden="true">↗</span></a>
 </article>
 <article class="offering">
 <p class="eyebrow">기업용</p>
@@ -80,14 +80,16 @@
 </article>
 </div>
 </section>
-<section class="wrap block" id="lab">
-<h2>액슨 실험실</h2>
+<section class="wrap block" id="lab" aria-labelledby="lab-title">
+<h2 id="lab-title">액슨 실험실</h2>
+<section class="lab-case" id="pallet-lab" aria-labelledby="pallet-title">
+<h3 class="lab-case-title" id="pallet-title">로봇 적재 및 이송 검증</h3>
 <div class="choices" role="group" aria-label="시뮬레이션 선택">
 <button type="button" data-demo="palletizing" aria-pressed="true">로봇 팔레트 적재</button>
 <button type="button" data-demo="incline" aria-pressed="false">경사 이송</button>
 </div>
 <div class="demo-heading">
-<h3 id="demo-title">커피 상자 팔레트 적재 부품 비교</h3>
+<h4 id="demo-title">커피 상자 팔레트 적재 부품 비교</h4>
 <button class="button small" type="button" id="result-play">시뮬레이션해 보기</button>
 </div>
 <div class="lab">
@@ -153,9 +155,8 @@
 </div>
 </div>
 </section>
-<section class="wrap block vehicle-demo" id="vehicle-lab" aria-labelledby="vehicle-title">
-<p class="eyebrow">액슨 실험실 / BeamNG.tech</p>
-<h2 id="vehicle-title">차량 시뮬레이션 데모</h2>
+<section class="lab-case" id="vehicle-lab" aria-labelledby="vehicle-title">
+<h3 class="lab-case-title" id="vehicle-title">물류 도크 후진 시야 검증</h3>
 <p class="section-copy">같은 후진 경로에서 시간대와 팔레트 위치를 바꿔 후방 카메라의 시야를 비교합니다.</p>
 <div class="lab">
 <div class="response" aria-label="차량 실험 예시 채팅">
@@ -165,7 +166,7 @@
 <div class="chat-turn"><div class="from-user"><p class="label">나</p><p>야간이나 차로 가장자리도 놓치지 않으려면 어떤 센서를 비교해 볼까?</p></div></div>
 <div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>같은 위치에 저조도 광각 카메라를 달고, 범퍼 양쪽에 근거리 센서를 추가한 구성을 다음 시험 후보로 볼 수 있어요. 같은 네 조건에서 팔레트를 처음 감지하는 거리와 화면에서 놓치는 구간을 비교하면 됩니다.</p></div></div>
 </div>
-<div class="chat-messages" role="log" aria-label="직접 입력한 차량 데모 대화"></div>
+<div class="chat-messages" role="log" aria-label="직접 입력한 차량 시뮬레이션 대화"></div>
 <form class="chat-compose">
 <input name="message" type="text" aria-label="액슨에게 차량 시뮬레이션 질문하기" placeholder="액슨에게 질문하기" maxlength="1000" required>
 <button type="submit" class="chat-send" aria-label="보내기"></button>
@@ -173,7 +174,7 @@
 </div>
 <div class="viewer vehicle-view">
 <div class="vehicle-plan">
-<h3>도크 후진 시야 시험</h3>
+<h4>도크 후진 영상 및 센서 기록</h4>
 <div class="dock-controls">
 <label for="dock-case">시험 조건</label>
 <select id="dock-case">
@@ -194,6 +195,7 @@
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="product" class="workflow"><div class="wrap block">
 <p class="eyebrow">Axon</p><h2>질문에서 시뮬레이션 결과까지</h2>
@@ -238,7 +240,7 @@
 <li><h3>파일럿 검증</h3><p>하중이나 설비 설정을 바꿔보고, 기존 조건과 결과를 비교합니다.</p></li>
 <li><h3>현장 적용</h3><p>검증한 조건을 기존 설비에 적용하고, 담당자와 변경 전후를 확인합니다.</p></li>
 </ol>
-<a class="button" href="#lab">공정 검증 데모 체험</a>
+<a class="button" href="#lab">공정 검증 사례 보기</a>
 <a class="dx-link" href="#product">사내용 전용 LLM 보기</a>
 </section>
 <section id="about" class="wrap block about">
@@ -268,6 +270,6 @@
 </div>
 </section>
 </main>
-<footer id="contact"><div class="wrap nav"><a class="brand" href="#top"><img src="axon-logo.svg" width="137" height="44" alt="Axon Dynamics"></a><div><a href="#about">회사 소개</a><a href="#lab">무료 데모</a><a href="mailto:gusdn555@gmail.com">문의 / gusdn555@gmail.com</a></div></div></footer>
+<footer id="contact"><div class="wrap nav"><a class="brand" href="#top"><img src="axon-logo.svg" width="137" height="44" alt="Axon Dynamics"></a><div><a href="#about">회사 소개</a><a href="#lab">액슨 실험실</a><a href="mailto:gusdn555@gmail.com">문의 / gusdn555@gmail.com</a></div></div></footer>
 </body></html>
 
