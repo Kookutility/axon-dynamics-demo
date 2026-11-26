@@ -6,9 +6,9 @@
 <meta name="description" content="Axon에서 로봇과 차량의 물리 시뮬레이션을 살펴보세요. 시험 조건부터 결과 수치와 영상까지 한 화면에서 확인할 수 있습니다.">
 <link rel="icon" href="axon-mark.svg" type="image/svg+xml">
 <title>Axon Dynamics — 물리 시뮬레이션 특화 AI</title>
-<link rel="stylesheet" href="style.css?v=axon-window">
+<link rel="stylesheet" href="style.css?v=pallet-process">
 <script src="pallet-results.js?v=part-trials" defer></script>
-<script src="app.js?v=compact-workspace" defer></script>
+<script src="app.js?v=pallet-process" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
@@ -35,7 +35,7 @@
 <section class="preview-chat" aria-label="대화">
 <div class="preview-chat-body">
 <div class="chat-turn"><div class="from-user"><p>2.5 kg 커피 상자를 팔레트에 옮길 때, 관절 이동이 가장 적은 조합은 뭐야?</p></div></div>
-<div class="chat-turn"><div class="from-axon"><p class="label">Axon</p><p>적재를 마친 두 조합 중 <strong>UR10e + PowerPick 0 mm</strong>의 관절 이동이 가장 적었어요. 100 mm 조합보다 48.4° 적었습니다.</p></div></div>
+<div class="chat-turn" id="preview-pallet-answer" hidden><div class="from-axon"><p class="label">Axon</p><p>적재를 마친 두 조합 중 <strong>UR10e + PowerPick 0 mm</strong>의 관절 이동이 가장 적었어요. 100 mm 조합보다 48.4° 적었습니다.</p></div></div>
 </div>
 <div class="chat-messages" role="log" aria-label="Axon 실험실 대화"></div>
 <form class="chat-compose">
@@ -45,6 +45,8 @@
 </section>
 <figure class="hero-preview">
 <figcaption>시뮬레이션 결과 <span>Isaac Sim</span></figcaption>
+<div class="pallet-result-wait" id="preview-pallet-wait"><a id="preview-start-link" href="#pallet-lab">적재 검증 시작하기</a></div>
+<div id="preview-pallet-result" hidden>
 <video controls playsinline preload="none" poster="media/warehouse-palletizing.jpg" aria-label="Isaac Sim 창고에서 컨베이어의 상자를 팔레트에 옮기는 영상">
 <source src="media/warehouse-palletizing.mp4" type="video/mp4">
 </video>
@@ -59,6 +61,7 @@
 </tbody>
 </table>
 <a id="preview-trials-link" href="#trial-results">5개 조합의 결과와 영상 보기</a>
+</div>
 </div>
 </figure>
 </div>
@@ -92,7 +95,7 @@
 </div>
 <div class="demo-heading">
 <h4 id="demo-title">커피 상자 팔레트 적재 부품 비교</h4>
-<button class="button small" type="button" id="result-play">시뮬레이션해 보기</button>
+<button class="button small" type="button" id="result-play" hidden>시뮬레이션 영상 보기</button>
 </div>
 <div class="lab">
 <div class="response" aria-label="액슨 예시 채팅">
@@ -105,8 +108,9 @@
 <div class="from-axon">
 <p class="label">액슨</p>
 <ul class="chat-progress">
-<li id="chat-environment">시뮬레이션 환경 확정 중</li>
-<li id="chat-composition" hidden>사용할 부품 구성 검토 중</li>
+<li>질문 분석 완료: 2.5 kg 상자 적재, 관절 이동량 비교</li>
+<li>공정 분류 완료: 로봇 팔레트 적재</li>
+<li>시뮬레이션 환경 확정: Isaac Sim</li>
 </ul>
 <div id="chat-part-choice" hidden>
 <p>사용할 부품이 정해지셨나요?</p>
@@ -116,7 +120,11 @@
 </div>
 <div class="chat-turn" id="pallet-no-response" hidden>
 <div class="from-user" tabindex="-1"><p class="label">나</p><p>아니요, 추천해 주세요.</p></div>
-<div class="from-axon"><p class="label">액슨</p><p id="chat-part-search" class="chat-loading" role="status">사용할 부품 구성 파악 중</p></div>
+<div class="from-axon"><p class="label">액슨</p><ol class="chat-progress" role="status">
+<li id="chat-part-search">부품 구성 파악 및 모델 선택 중</li>
+<li id="chat-run" hidden>Isaac Sim 실행 기록 불러오는 중</li>
+<li id="chat-review" hidden>결과 검토: 적재 성공 여부와 관절 이동량 비교 완료</li>
+</ol></div>
 </div>
 <div class="chat-turn" id="pallet-followup" hidden>
 <div class="from-axon"><p class="label">액슨</p><p id="sample-answer"></p><p id="sample-followup"></p></div>
@@ -129,17 +137,18 @@
 </form>
 </div>
 <div class="viewer gripper-view">
+<p class="pallet-result-wait" id="pallet-result-wait" role="status">부품 추천을 요청하면 검증이 시작됩니다.</p>
 <div class="video-legend" id="incline-legend" hidden><span>주황 레인: 마찰계수 0.10</span><span>청록 레인: 마찰계수 0.65</span></div>
 <div id="palletizing-legend" class="demo-equipment" aria-live="polite"><strong id="trial-name"></strong><span id="trial-status"></span></div>
 <p id="trial-assembly" class="demo-equipment"></p>
-<video id="result-video" controls playsinline preload="none" aria-label="로봇 팔레트 적재 비교 영상">
+<video id="result-video" controls playsinline preload="none" hidden aria-label="로봇 팔레트 적재 비교 영상">
 </video>
 <p class="sample" id="media-status" role="status" hidden></p>
 <details class="demo-conditions" id="incline-conditions" hidden>
 <summary>실험 조건</summary>
 <p>물류 컨베이어의 18° 경사 구간에 12 kg 포장품을 놓고 두 접촉면을 비교했습니다. NVIDIA Isaac Sim의 PhysX 강체 접촉 모델로 이송 정지 시 포장품이 초기 위치를 유지하는지 확인했습니다.</p>
 </details>
-<section id="trial-results" aria-labelledby="trial-results-title">
+<section id="trial-results" aria-labelledby="trial-results-title" hidden>
 <h4 id="trial-results-title">부품 조합별 결과</h4>
 <p class="demo-equipment">상자 2.5 kg, 동일한 집기 및 배치 위치. 관절 이동량은 여섯 관절이 한 사이클 동안 회전한 각도의 합입니다.</p>
 <div class="trial-scroll">

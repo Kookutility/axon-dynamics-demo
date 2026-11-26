@@ -209,6 +209,9 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .preview-comparison td:last-child { white-space: nowrap; }
 .preview-comparison strong, .preview-comparison a { color: var(--mint); }
 .preview-comparison a { display: inline-block; margin-top: 8px; text-decoration: underline; text-underline-offset: 3px; }
+.pallet-result-wait { margin: 0; padding: 20px 16px; color: var(--soft); font-size: .9rem; }
+.pallet-result-wait a { color: var(--mint); text-decoration: underline; text-underline-offset: 3px; }
+#result-video[hidden], #result-play[hidden], #trial-assembly[hidden] { display: none; }
 .offerings { padding-bottom: 18px; }
 .offering-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .offering {

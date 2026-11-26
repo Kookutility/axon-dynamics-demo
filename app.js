@@ -7,12 +7,16 @@ const sampleFollowup = document.querySelector('#sample-followup');
 const palletSetup = document.querySelector('#pallet-setup');
 const palletResponse = document.querySelector('#pallet-no-response');
 const palletFollowup = document.querySelector('#pallet-followup');
-const chatEnvironment = document.querySelector('#chat-environment');
-const chatComposition = document.querySelector('#chat-composition');
 const chatPartChoice = document.querySelector('#chat-part-choice');
 const chatPartSearch = document.querySelector('#chat-part-search');
+const chatRun = document.querySelector('#chat-run');
+const chatReview = document.querySelector('#chat-review');
 const noParts = document.querySelector('#chat-no-parts');
+const resultPlay = document.querySelector('#result-play');
+const trialResults = document.querySelector('#trial-results');
+const palletResultWait = document.querySelector('#pallet-result-wait');
 let chatTimer;
+let palletComplete = false;
 const trialName = document.querySelector('#trial-name');
 const trialStatus = document.querySelector('#trial-status');
 const trialAssembly = document.querySelector('#trial-assembly');
@@ -103,38 +107,41 @@ function showTrial(trial) {
   }
 }
 
-function startPalletChat() {
-  chatEnvironment.textContent = '시뮬레이션 환경 확정 중';
-  chatComposition.hidden = true;
-  chatPartChoice.hidden = true;
-  palletResponse.hidden = true;
-  palletFollowup.hidden = true;
-  noParts.hidden = false;
-  chatTimer = setTimeout(() => {
-    chatEnvironment.textContent = '시뮬레이션 환경 확정 완료';
-    chatComposition.hidden = false;
-    chatTimer = setTimeout(() => {
-      chatComposition.textContent = '사용할 부품 구성 검토 완료';
-      chatPartChoice.hidden = false;
-    }, 650);
-  }, 550);
-  chatComposition.textContent = '사용할 부품 구성 검토 중';
+function showPalletResults() {
+  palletResultWait.hidden = true;
+  video.hidden = false;
+  resultPlay.hidden = false;
+  trialResults.hidden = false;
+  trialAssembly.hidden = false;
+  document.querySelector('#palletizing-legend').hidden = false;
+  showTrial(recommended);
 }
 
 noParts.addEventListener('click', () => {
-  noParts.hidden = true;
+  chatPartChoice.hidden = true;
   palletResponse.hidden = false;
-  chatPartSearch.textContent = '사용할 부품 구성 파악 중';
+  chatPartSearch.textContent = '부품 구성 파악 및 모델 선택 중';
   chatPartSearch.classList.add('chat-loading');
+  palletResultWait.textContent = '부품 조합과 시뮬레이션 모델을 선택하는 중입니다.';
   palletResponse.querySelector('.from-user').focus({ preventScroll: true });
   chatTimer = setTimeout(() => {
-    chatPartSearch.textContent = '부품 조합 5개의 시뮬레이션 결과 비교 중';
+    chatPartSearch.classList.remove('chat-loading');
+    chatPartSearch.textContent = '모델 선택 완료: Isaac Sim, 로봇과 그리퍼 5개 조합';
+    chatRun.hidden = false;
+    chatRun.classList.add('chat-loading');
+    palletResultWait.textContent = '저장된 시뮬레이션 실행 기록을 불러오는 중입니다.';
     chatTimer = setTimeout(() => {
-      chatPartSearch.textContent = '부품 조합 5개 비교 완료';
-      chatPartSearch.classList.remove('chat-loading');
+      chatRun.classList.remove('chat-loading');
+      chatRun.textContent = '시뮬레이션 실행 기록 확인 완료';
+      chatReview.hidden = false;
       palletFollowup.hidden = false;
-    }, 1500);
-  }, 1300);
+      palletComplete = true;
+      showPalletResults();
+      document.querySelector('#preview-pallet-answer').hidden = false;
+      document.querySelector('#preview-pallet-result').hidden = false;
+      document.querySelector('#preview-pallet-wait').hidden = true;
+    }, 3000);
+  }, 3000);
 });
 
 function showDemo(selected) {
@@ -146,22 +153,36 @@ function showDemo(selected) {
     document.querySelector('#' + id + '-legend').hidden = id !== selected;
     document.querySelector('#' + id + '-conditions').hidden = id !== selected;
   });
-  document.querySelector('#trial-results').hidden = !palletizing;
+  trialResults.hidden = true;
   palletSetup.hidden = !palletizing;
   palletResponse.hidden = true;
   palletFollowup.hidden = true;
   document.querySelector('#incline-chat-answer').hidden = palletizing;
-  trialAssembly.hidden = !palletizing;
+  trialAssembly.hidden = true;
+  video.hidden = palletizing;
+  resultPlay.hidden = palletizing;
+  palletResultWait.hidden = !palletizing;
+  mediaStatus.hidden = true;
 
   if (palletizing) {
+    video.pause();
     demoTitle.textContent = '커피 상자 팔레트 적재 부품 비교';
     sampleQuestion.textContent = initialQuestion;
     sampleAnswer.textContent = successful.length
       ? recommended.arm + '에 PowerPick ' + recommended.tool + '를 조합한 구성이 이번 시험에서 가장 좋았어요. ' + recommended.assembly + ' 적재를 완료한 구성 중 여섯 관절의 이동량 합계가 ' + recommended.jointTravelDeg.toFixed(1) + '도로 가장 작았습니다.'
       : '다섯 구성 모두 이번 시험의 적재 기준을 충족하지 못했습니다.';
     sampleFollowup.textContent = '같은 2.5 kg 상자와 경로에서 미리 실행한 다섯 조합 중 ' + successful.length + '개가 적재를 마쳤습니다. 옆 표에서 결과와 촬영 영상을 비교할 수 있어요.';
-    showTrial(recommended);
-    startPalletChat();
+    chatPartChoice.hidden = palletComplete;
+    palletResponse.hidden = !palletComplete;
+    palletFollowup.hidden = !palletComplete;
+    document.querySelector('#palletizing-legend').hidden = true;
+    if (palletComplete) {
+      showPalletResults();
+    } else {
+      chatRun.hidden = true;
+      chatReview.hidden = true;
+      palletResultWait.textContent = '부품 추천을 요청하면 검증이 시작됩니다.';
+    }
     return;
   }
 
@@ -174,12 +195,14 @@ function showDemo(selected) {
 demoButtons.forEach(button => button.addEventListener('click', () => {
   if (button.getAttribute('aria-pressed') !== 'true') showDemo(button.dataset.demo);
 }));
-document.querySelector('#result-play').addEventListener('click', playVideo);
-document.querySelector('#preview-trials-link').addEventListener('click', () => {
-  if (document.querySelector('[data-demo="palletizing"]').getAttribute('aria-pressed') !== 'true') {
-    showDemo('palletizing');
-  }
-});
+resultPlay.addEventListener('click', playVideo);
+for (const id of ['preview-start-link', 'preview-trials-link']) {
+  document.querySelector('#' + id).addEventListener('click', () => {
+    if (document.querySelector('[data-demo="palletizing"]').getAttribute('aria-pressed') !== 'true') {
+      showDemo('palletizing');
+    }
+  });
+}
 showDemo('palletizing');
 
 function appendChatMessage(messages, sender, label, text) {
