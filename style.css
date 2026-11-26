@@ -120,8 +120,7 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .demo-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 18px; margin: 24px 0 15px; }
 .demo-heading h3 { margin: 0; font-weight: 550; word-break: keep-all; }
 #result-play { border: 0; }
-.chat-compose input:disabled { cursor: not-allowed; opacity: .8; }
-.chat-compose input:disabled::placeholder { color: var(--soft); }
+.chat-compose input::placeholder { color: var(--soft); }
 .demo-conditions { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--soft); }
 .demo-conditions summary { cursor: pointer; }
 .demo-conditions p { margin: 10px 0 0; line-height: 1.6; word-break: keep-all; }
@@ -178,8 +177,7 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
   border-radius: 12px;
   background: #0b141d;
 }
-.hero-preview figcaption,
-.preview-result {
+.hero-preview figcaption {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -188,7 +186,7 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
   margin: 0;
   font-size: .85rem;
 }
-.hero-preview span, .vehicle-credit { color: var(--soft); }
+.hero-preview span { color: var(--soft); }
 .preview-question {
   width: fit-content;
   margin: 0 15px 14px auto;
@@ -197,8 +195,11 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
   background: #17362d;
   font-size: .875rem;
 }
-.hero-preview img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-.preview-result strong { color: var(--mint); font-weight: 600; }
+.hero-preview video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #080c10; }
+.preview-specs { grid-template-columns: 1fr; padding: 8px 17px; }
+.preview-specs div,
+.preview-specs div + div { display: grid; grid-template-columns: 4em 1fr; gap: 8px; padding: 7px 0; border: 0; }
+.preview-specs dd { margin: 0; font-size: .875rem; font-weight: 500; }
 .offerings { padding-bottom: 18px; }
 .offering-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
 .offering {
@@ -215,11 +216,12 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .offering p:not(.eyebrow) { color: var(--soft); line-height: 1.65; word-break: keep-all; }
 .offering-link { margin-top: auto; padding-block: 6px; color: var(--mint); text-decoration: underline; text-underline-offset: 4px; }
 .vehicle-demo { border-top: 1px solid var(--line); }
-.vehicle-chart { display: grid; gap: 20px; margin: 0; padding: 24px; }
-.vehicle-chart figcaption, .vehicle-score { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
-.vehicle-chart figcaption span, .vehicle-score span { color: var(--soft); font-size: .875rem; }
-.vehicle-score meter { flex: 0 0 100%; block-size: 1em; }
-.vehicle-credit { margin: 0; font-size: .75rem; }
+.vehicle-plan { padding: 24px; }
+.vehicle-plan dl { grid-template-columns: 1fr; }
+.vehicle-plan dl div { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.vehicle-plan dl div + div { border-left: 0; }
+.vehicle-plan dd { font-size: .95rem; font-weight: 500; }
+.vehicle-plan p { margin: 14px 0 0; color: var(--soft); font-size: .8rem; }
 .simulator-logos img.beamng-logo { width: 8em; }
 @media (max-width: 760px) {
   .hero-grid { grid-template-columns: 1fr; }

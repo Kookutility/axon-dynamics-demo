@@ -179,6 +179,35 @@ demoButtons.forEach(button => button.addEventListener('click', () => {
 document.querySelector('#result-play').addEventListener('click', playVideo);
 showDemo('palletizing');
 
+function appendChatMessage(messages, sender, label, text) {
+  const turn = document.createElement('div');
+  const bubble = document.createElement('div');
+  const name = document.createElement('p');
+  const content = document.createElement('p');
+  turn.className = 'chat-turn';
+  bubble.className = sender;
+  name.className = 'label';
+  name.textContent = label;
+  content.textContent = text;
+  bubble.append(name, content);
+  turn.append(bubble);
+  messages.append(turn);
+}
+
+document.querySelectorAll('form.chat-compose').forEach(form => {
+  const input = form.elements.namedItem('message');
+  const messages = form.previousElementSibling;
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const question = input.value.trim();
+    if (!question) return;
+    appendChatMessage(messages, 'from-user', '나', question);
+    appendChatMessage(messages, 'from-axon', '액슨', '직접 입력한 질문을 시뮬레이션으로 실행하는 기능은 현재 준비 중입니다.');
+    form.reset();
+    input.focus();
+  });
+});
+
 const logoTrack = document.querySelector('.simulator-track');
 const logoCopy = logoTrack.firstElementChild.cloneNode(true);
 logoCopy.setAttribute('aria-hidden', 'true');

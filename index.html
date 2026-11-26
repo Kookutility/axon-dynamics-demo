@@ -6,9 +6,9 @@
 <meta name="description" content="Axon Dynamics는 제조와 물류 현장의 질문을 물리 시뮬레이션으로 검증하는 산업용 LLM Axon을 개발합니다.">
 <link rel="icon" href="axon-mark.svg" type="image/svg+xml">
 <title>Axon Dynamics — 물리 시뮬레이션 특화 AI</title>
-<link rel="stylesheet" href="style.css?v=two-products">
+<link rel="stylesheet" href="style.css?v=warehouse-lab">
 <script src="pallet-results.js?v=part-trials" defer></script>
-<script src="app.js?v=chat-layout" defer></script>
+<script src="app.js?v=warehouse-lab" defer></script>
 </head>
 <body>
 <header id="top"><div class="wrap nav">
@@ -27,10 +27,16 @@
 <a class="dx-link" href="#product">Axon의 작동 방식</a>
 </div>
 <figure class="hero-preview">
-<figcaption>Axon Lab <span>Isaac Sim 실험 기록</span></figcaption>
+<figcaption>Axon Lab <span>Isaac Sim / 포장 라인 말단</span></figcaption>
 <p class="preview-question">커피 상자를 팔레트에 옮길 로봇과 흡착 그리퍼를 비교해 줘.</p>
-<img src="media/pallet-ur10e-0-large.jpg" alt="Isaac Sim에서 로봇 팔이 커피 상자 팔레트 적재를 시험하는 화면">
-<p class="preview-result"><strong>UR10e + PowerPick</strong><span>비교한 5개 구성 중 2개 적재 완료</span></p>
+<video controls playsinline preload="none" poster="media/warehouse-palletizing.jpg" aria-label="Isaac Sim 창고에서 컨베이어의 상자를 팔레트에 옮기는 영상">
+<source src="media/warehouse-palletizing.mp4" type="video/mp4">
+</video>
+<dl class="preview-specs">
+<div><dt>설비</dt><dd>UR10e + PowerPick</dd></div>
+<div><dt>상자</dt><dd>430 × 340 × 320 mm / 2.5 kg</dd></div>
+<div><dt>이송</dt><dd>롤러 컨베이어 → 목재 팔레트</dd></div>
+</dl>
 </figure>
 </div>
 </section>
@@ -89,11 +95,11 @@
 <div class="from-axon"><p class="label">액슨</p><p id="sample-answer"></p><p id="sample-followup"></p></div>
 </div>
 </div>
-<div class="chat-form">
-<div class="chat-compose">
-<input type="text" aria-label="채팅 입력: 기능 준비 중" placeholder="기능 준비 중" disabled>
-</div>
-</div>
+<div class="chat-messages" role="log" aria-label="직접 입력한 대화"></div>
+<form class="chat-compose">
+<input name="message" type="text" aria-label="액슨에게 질문하기" placeholder="액슨에게 질문하기" maxlength="1000" required>
+<button type="submit" class="button small">보내기</button>
+</form>
 </div>
 <div class="viewer gripper-view">
 <div class="video-legend" id="incline-legend" hidden><span>주황 레인: 마찰계수 0.10</span><span>청록 레인: 마찰계수 0.65</span></div>
@@ -130,23 +136,30 @@
 <section class="wrap block vehicle-demo" id="vehicle-lab" aria-labelledby="vehicle-title">
 <p class="eyebrow">액슨 실험실 / BeamNG.tech</p>
 <h2 id="vehicle-title">차량 시뮬레이션 데모</h2>
-<p class="section-copy">도로에 떨어진 물체를 낮과 밤에 얼마나 분명하게 식별하는지 본 48건의 실험입니다.</p>
+<p class="section-copy">물류 야드에서 후진하는 차량의 경고 센서를 어떻게 시험할지 보여주는 예시입니다.</p>
 <div class="lab">
 <div class="response" aria-label="차량 실험 예시 채팅">
 <div class="chat-log">
-<div class="chat-turn"><div class="from-user"><p class="label">나</p><p>BeamNG에서 기록한 주행 실험을 기준으로, 낮과 밤에 도로 위 장애물을 얼마나 잘 식별했는지 비교해 줘.</p></div></div>
-<div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>낮 24건과 밤 24건의 식별 점수를 비교했습니다. 평균은 낮 4.54점, 밤 3.13점으로, 밤 실험에서 1.42점 낮았습니다.</p></div></div>
-<div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>두 조건의 결과를 그래프로 정리했습니다. 서로 다른 장애물이 포함된 실험이라 조명만의 영향으로 해석하기는 어렵습니다.</p></div></div>
+<div class="chat-turn"><div class="from-user"><p class="label">나</p><p>납품 밴이 도크에 후진할 때, 차 뒤에 놓인 빈 팔레트를 후방 카메라가 충분히 일찍 잡을까? 어두운 도크에서도 확인해 줘.</p></div></div>
+<div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>차량과 카메라 위치, 후진 경로는 그대로 두고 도크 조명만 바꿔 비교할게요. 팔레트는 바닥 중앙과 도크 가장자리에 각각 놓아 보겠습니다.</p></div></div>
+<div class="chat-turn"><div class="from-axon"><p class="label">액슨</p><p>먼저 차량이 팔레트에서 얼마나 떨어졌을 때 화면에 처음 보이는지 기록하겠습니다. 감지 모델을 연결하면 최초 감지 거리와 미검출 구간도 비교할 수 있어요.</p></div></div>
 </div>
-<div class="chat-compose"><input type="text" aria-label="차량 데모 채팅 입력" placeholder="기능 준비 중" disabled></div>
+<div class="chat-messages" role="log" aria-label="직접 입력한 차량 데모 대화"></div>
+<form class="chat-compose">
+<input name="message" type="text" aria-label="액슨에게 차량 시뮬레이션 질문하기" placeholder="액슨에게 질문하기" maxlength="1000" required>
+<button type="submit" class="button small">보내기</button>
+</form>
 </div>
 <div class="viewer vehicle-view">
-<figure class="vehicle-chart">
-<figcaption>장애물 식별 점수 <span>5점 척도</span></figcaption>
-<div class="vehicle-score"><span>낮 / 24건</span><strong>4.54점</strong><meter min="0" max="5" value="4.54167" aria-label="낮 평균 식별 점수">4.54점</meter></div>
-<div class="vehicle-score"><span>밤 / 24건</span><strong>3.13점</strong><meter min="0" max="5" value="3.125" aria-label="밤 평균 식별 점수">3.13점</meter></div>
-<p class="vehicle-credit">BeamNG 주행 기록 48건을 바탕으로 집계</p>
-</figure>
+<div class="vehicle-plan">
+<h3>도크 후진 시야 시험</h3>
+<dl>
+<div><dt>고정 조건</dt><dd>납품 밴, 후진 경로, 카메라 장착 위치</dd></div>
+<div><dt>비교 조건</dt><dd>도크 조명 켜짐 / 꺼짐, 팔레트 중앙 / 가장자리</dd></div>
+<div><dt>확인 항목</dt><dd>최초 가시 거리, 사각 구간</dd></div>
+</dl>
+<p>예시 시험 계획 / 실행 전</p>
+</div>
 </div>
 </div>
 </section>
