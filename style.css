@@ -5,8 +5,10 @@
 @media(max-width:620px){.wrap{width:calc(100% - 32px)}header .nav{display:grid;grid-template-columns:1fr auto;gap:12px;padding-block:13px}header nav{grid-row:2;grid-column:span 2}.button.small{min-height:35px;padding-inline:9px}.hero{min-height:590px;align-items:start}.hero-copy{padding:40px 0 195px}.hero-art{background-image:linear-gradient(180deg,#080c10 8%,#080c10e8 35%,#080c1010 72%,#080c10 100%),url(pallet-loading.webp);background-position:center,64% bottom;background-size:auto,auto 75%}.hero-footer{font-size:.65rem}.block{padding-block:57px}.lab,.about{grid-template-columns:1fr}.viewer{border-left:0;border-top:1px solid var(--line)}.about{gap:12px}.response{padding:20px}footer .nav{padding-block:18px;flex-wrap:wrap}dl div{padding:9px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
-.lab > * { min-width: 0; }
-.chat-log { max-height: 310px; min-height: 200px; overflow: auto; padding: 4px; margin: -4px -4px 18px; }
+.lab { align-items: start; gap: 14px; border: 0; background: transparent; }
+.lab > * { min-width: 0; border: 1px solid var(--line); border-radius: 9px; }
+.lab > .response { background: var(--panel); }
+.chat-log { margin-bottom: 12px; }
 .chat-turn { display: grid; gap: 9px; margin-bottom: 14px; }
 .chat-turn > div {
   max-width: 93%;
@@ -21,7 +23,6 @@
 .chat-turn .label { margin-bottom: 4px; letter-spacing: .04em; color: var(--mint); }
 .chat-turn > .from-axon { justify-self: start; background: #182637; border-color: #2d435a; }
 .chat-turn > .from-axon .label { color: #a9c9ec; }
-.chat-form { margin-top: auto; }
 .chat-form label { display: inline-block; margin-bottom: 8px; font-weight: 650; }
 .chat-compose { display: flex; gap: 8px; align-items: stretch; }
 .chat-compose input {
@@ -119,7 +120,6 @@ h2 { font-size: clamp(1.8rem, 3.7vw, 2.7rem); font-weight: 475; line-height: 1.2
 .demo-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 18px; margin: 24px 0 15px; }
 .demo-heading h3 { margin: 0; font-weight: 550; word-break: keep-all; }
 #result-play { border: 0; }
-#lab .chat-log { min-height: 0; }
 .chat-compose input:disabled { cursor: not-allowed; opacity: .8; }
 .chat-compose input:disabled::placeholder { color: var(--soft); }
 .demo-conditions { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--soft); }

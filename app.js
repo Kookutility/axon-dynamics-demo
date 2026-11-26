@@ -5,7 +5,6 @@ const snapshot = document.querySelector('#result-snapshot');
 const sampleQuestion = document.querySelector('#sample-question');
 const sampleAnswer = document.querySelector('#sample-answer');
 const sampleFollowup = document.querySelector('#sample-followup');
-const chatLog = document.querySelector('.chat-log');
 const palletSetup = document.querySelector('#pallet-setup');
 const palletResponse = document.querySelector('#pallet-no-response');
 const palletFollowup = document.querySelector('#pallet-followup');
@@ -113,7 +112,6 @@ function startPalletChat() {
   palletResponse.hidden = true;
   palletFollowup.hidden = true;
   noParts.hidden = false;
-  chatLog.scrollTop = 0;
   chatTimer = setTimeout(() => {
     chatEnvironment.textContent = '시뮬레이션 환경 확정 완료';
     chatComposition.hidden = false;
@@ -131,15 +129,12 @@ noParts.addEventListener('click', () => {
   chatPartSearch.textContent = '사용할 부품 구성 파악 중';
   chatPartSearch.classList.add('chat-loading');
   palletResponse.querySelector('.from-user').focus({ preventScroll: true });
-  chatLog.scrollTop = chatLog.scrollHeight;
   chatTimer = setTimeout(() => {
     chatPartSearch.textContent = '부품 조합 5개의 시뮬레이션 결과 비교 중';
-    chatLog.scrollTop = chatLog.scrollHeight;
     chatTimer = setTimeout(() => {
       chatPartSearch.textContent = '부품 조합 5개 비교 완료';
       chatPartSearch.classList.remove('chat-loading');
       palletFollowup.hidden = false;
-      chatLog.scrollTop = chatLog.scrollHeight;
     }, 1500);
   }, 1300);
 });
