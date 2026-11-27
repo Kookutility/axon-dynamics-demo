@@ -63,13 +63,8 @@
 .hero h1 em { display: block; }
 .workflow .steps { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .use-cases .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.about {
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding-inline: clamp(20px, 4vw, 48px);
-  background: #101920;
-}
-.about p:not(.eyebrow) { color: #edf5f3; }
+.about { border-top: 1px solid var(--line); }
+.about h2 img { display: block; max-width: 100%; height: auto; }
 .gripper-view { padding: 16px 20px 24px; }
 .gripper-view .viewer-top { padding: 0; }
 #run-status { color: var(--mint); margin: 12px 0; }
